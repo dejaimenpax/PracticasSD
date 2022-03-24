@@ -8,9 +8,9 @@ Editar/modificar detalles usuario
 Dar de baja un usuario
 Listar Estaciones
 
-                                  {- Borrar estación
+   ________________________________{- Borrar estación
 Detalle de una estación concreta {
-                                  {- Modificar coordenadas de una estación
+   ________________________________{- Modificar coordenadas de una estación
                                   
 Búsqueda de estaciones
 Dar de alta una nueva estación
