@@ -7,11 +7,7 @@ Dar de alta usuario
 Editar/modificar detalles usuario
 Dar de baja un usuario
 Listar Estaciones
-
-   ________________________________{- Borrar estación
-Detalle de una estación concreta {
-   ________________________________{- Modificar coordenadas de una estación
-                                  
+Detalle de una estación concreta : Borrar estación | Modificar coordenadas de una estación                             
 Búsqueda de estaciones
 Dar de alta una nueva estación
 Listar bicicletas de una estación
