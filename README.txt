@@ -18,3 +18,9 @@ Detallar los datos de una bicicleta
 Poder poner una bicicleta sin estación en una estación concreta
 Dar de baja una bicicleta
 Dar de alta una bicicleta
+
+
+
+Crear Clases:
+    Cuando creeis una clase que sea un objeto, guardarla dentro de model y ponerle al principio la
+    anotacion @Entity. Estas clases deberan tener un constructor vacio para la base de datos.
