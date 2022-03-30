@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class CicloVidaBicicletas {
+public class Bicicleta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String num_serie;
@@ -15,9 +15,10 @@ public class CicloVidaBicicletas {
     private String fecha;
     private enum estado{sin_base,en_base,baja};
 
-    protected CicloVidaBicicletas() {}
+    protected Bicicleta() {}
 
-    public CicloVidaBicicletas(String modelo, String fecha) {
+    public Bicicleta(String modelo, String fecha) {
+        super();
         this.modelo = modelo;
         this.fecha = fecha;
     }

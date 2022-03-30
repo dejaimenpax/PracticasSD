@@ -56,6 +56,7 @@ public class Usuario{
     }
 
     public Usuario(String id, String password, String fullName){
+        super();
         this.id = id;
         this.password = password;
         this.fullName = fullName;

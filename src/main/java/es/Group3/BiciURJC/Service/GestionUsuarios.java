@@ -1,7 +1,10 @@
-package es.Group3.BiciURJC.model;
+package es.Group3.BiciURJC.Service;
+
+import es.Group3.BiciURJC.model.Usuario;
+import org.springframework.stereotype.Service;
 
 import java.util.Hashtable;
-
+@Service
 public class GestionUsuarios {
 
     public Hashtable<String, Usuario> users = new Hashtable<>();
