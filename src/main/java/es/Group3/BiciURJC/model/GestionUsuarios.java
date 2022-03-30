@@ -1,4 +1,4 @@
-package model;
+package es.Group3.BiciURJC.model;
 
 import java.util.Hashtable;
 

@@ -1,4 +1,4 @@
-package model;
+package es.Group3.BiciURJC.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
