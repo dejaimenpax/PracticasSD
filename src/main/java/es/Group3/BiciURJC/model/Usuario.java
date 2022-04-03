@@ -16,7 +16,7 @@ public class Usuario{
     private String password;
     private String fullName;
     private String entryDate;
-    private boolean state;
+    private boolean state; //true=activado, false=desactivado
     //private BufferedImage BufferedImage photo;
 
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");

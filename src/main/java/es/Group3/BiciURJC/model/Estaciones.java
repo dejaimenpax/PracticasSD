@@ -1,5 +1,7 @@
 package model;
 
+import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,11 +26,13 @@ public class Estaciones {
 	
 	protected Estaciones() {};
 	
-	public Estaciones(int num_serieE, int size, int lon, int lat, boolean stateE) { //deberiamos meter una excepcion para que size sea 5 o 10?
+	public Estaciones(int num_serieE, int size, int lon, int lat, boolean stateE) throws IncorrectStationCapacity {
 		super();
 		this.num_serieE = num_serieE;												//y el id se supone que lo asigna el sistema automaticamente
 		this.insDate = dtf.format(LocalDate.now());
-		this.size = size;
+		if (size!=5 && size!=10){
+			throw new IncorrectStationCapacity("Station capacity should be 5 or 10. Given: " + size);
+		}
 		this.lon = lon;
 		this.lat = lat;
 		this.stateE = stateE;
