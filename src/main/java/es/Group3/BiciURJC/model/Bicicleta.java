@@ -1,5 +1,8 @@
 package es.Group3.BiciURJC.model;
 
+import es.Group3.BiciURJC.exceptions.IllegalStationChange;
+
+import javax.lang.model.element.UnknownElementException;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +16,7 @@ public class Bicicleta {
 
     private String modelo;
     private String fecha;
-    private enum estado{sin_base,en_base,baja};
+    private EstadoBicicleta estado;
 
     protected Bicicleta() {}
 
@@ -43,6 +46,10 @@ public class Bicicleta {
         this.fecha = fecha;
     }
 
+    public EstadoBicicleta getEstado() {
+        return estado;
+    }
+
     @Override
     public String toString() {
         return "CicloVidaBicicletas{" +
@@ -50,5 +57,40 @@ public class Bicicleta {
                 ", modelo='" + modelo + '\'' +
                 ", fecha='" + fecha + '\'' +
                 '}';
+    }
+
+    private void asignarBase(EstadoBicicleta es) throws IllegalStationChange {
+        if (es==EstadoBicicleta.BAJA){
+            this.estado = EstadoBicicleta.BAJA;
+        }
+        else if (es==EstadoBicicleta.EN_BASE){
+            this.estado = EstadoBicicleta.EN_BASE;
+            //asociar la bicicleta a la estacion
+        }
+        else{
+            throw new IllegalStationChange("No se puede pasar de " + this.estado.toString() + " a " + es.toString());
+        }
+    }
+
+    public void cambiarEstado(EstadoBicicleta es) throws IllegalStationChange {
+        switch (this.estado){
+            case BAJA:
+                throw new IllegalStationChange("No se puede pasar de " + this.estado.toString() + " a " + es.toString());
+            case SIN_BASE:
+            case RESERVADA:
+                asignarBase(es);
+                break;
+            case EN_BASE:
+                if (es==EstadoBicicleta.BAJA){
+                    this.estado = EstadoBicicleta.BAJA;
+                }
+                else if (es==EstadoBicicleta.RESERVADA){
+                    this.estado = EstadoBicicleta.RESERVADA;
+                    //quitar la bicicleta de la estacion
+                }
+                break;
+            default:
+                throw new RuntimeException("Error inesperado en el cambio de estado");
+        }
     }
 }
