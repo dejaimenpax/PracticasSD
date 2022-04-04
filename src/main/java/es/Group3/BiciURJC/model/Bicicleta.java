@@ -1,8 +1,8 @@
 package es.Group3.BiciURJC.model;
 
-import es.Group3.BiciURJC.exceptions.IllegalStationChange;
+import es.Group3.BiciURJC.exceptions.IllegalStateChange;
+import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
 
-import javax.lang.model.element.UnknownElementException;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -59,34 +59,34 @@ public class Bicicleta {
                 '}';
     }
 
-    private void asignarBase(EstadoBicicleta es) throws IllegalStationChange {
-        if (es==EstadoBicicleta.BAJA){
+    private void asignarBase(EstadoBicicleta state, model.Estacion estacion) throws IllegalStateChange, IllegalStationAssociation {
+        if (state==EstadoBicicleta.BAJA){
             this.estado = EstadoBicicleta.BAJA;
         }
-        else if (es==EstadoBicicleta.EN_BASE){
+        else if (state==EstadoBicicleta.EN_BASE){
             this.estado = EstadoBicicleta.EN_BASE;
-            //asociar la bicicleta a la estacion
+            //estacion.addBicicleta(this) la cual lanza un IllegalStationAssociation si la estacion esta llena
         }
         else{
-            throw new IllegalStationChange("No se puede pasar de " + this.estado.toString() + " a " + es.toString());
+            throw new IllegalStateChange("No se puede pasar de " + this.estado.toString() + " a " + state.toString());
         }
     }
 
-    public void cambiarEstado(EstadoBicicleta es) throws IllegalStationChange {
+    public void cambiarEstado(EstadoBicicleta state, model.Estacion estacion) throws IllegalStateChange {
         switch (this.estado){
             case BAJA:
-                throw new IllegalStationChange("No se puede pasar de " + this.estado.toString() + " a " + es.toString());
+                throw new IllegalStateChange("No se puede pasar de " + this.estado.toString() + " a " + state.toString());
             case SIN_BASE:
             case RESERVADA:
-                asignarBase(es);
+                asignarBase(state, estacion);
                 break;
             case EN_BASE:
-                if (es==EstadoBicicleta.BAJA){
+                if (state==EstadoBicicleta.BAJA){
                     this.estado = EstadoBicicleta.BAJA;
                 }
-                else if (es==EstadoBicicleta.RESERVADA){
+                else if (state==EstadoBicicleta.RESERVADA){
                     this.estado = EstadoBicicleta.RESERVADA;
-                    //quitar la bicicleta de la estacion
+                    //estacion.quitarBici(this)
                 }
                 break;
             default:
