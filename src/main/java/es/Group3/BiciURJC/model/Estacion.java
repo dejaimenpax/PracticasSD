@@ -1,5 +1,7 @@
-package model;
+package es.Group3.BiciURJC.model;
 
+import es.Group3.BiciURJC.exceptions.IllegalStateChange;
+import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
 import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
 
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Hashtable;
 
 @Entity
 public class Estacion {
@@ -21,6 +24,7 @@ public class Estacion {
 	private double lon; //coordenada longitud
 	private double lat; //coordenada latitud
 	private boolean stateE; //true=activa, false=inactiva
+	private Hashtable<String, Bicicleta> listaBicis;
 	
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	
@@ -84,6 +88,18 @@ public class Estacion {
 	
 	public void setLat(double lat) {
 		this.lat = lat;
+	}
+
+	public String getIdE() {return this.idE;}
+
+	public Hashtable<String, Bicicleta> getListaBicis() {return this.listaBicis;}
+
+	public void addBike(Bicicleta bk) throws IllegalStationAssociation, IncorrectStationCapacity {
+		bk.asignarBase(this);
+	}
+
+	public void removeBike(Bicicleta bk) throws IllegalStateChange, IncorrectStationCapacity {
+		bk.cambiarEstado(EstadoBicicleta.SIN_BASE, this);
 	}
 	
 	 @Override
