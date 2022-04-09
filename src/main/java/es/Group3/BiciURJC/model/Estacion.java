@@ -1,13 +1,11 @@
 package es.Group3.BiciURJC.model;
 
+import es.Group3.BiciURJC.Service.CicloVidaBicicletas;
 import es.Group3.BiciURJC.exceptions.IllegalStateChange;
 import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
 import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Hashtable;
@@ -95,11 +93,11 @@ public class Estacion {
 	public Hashtable<String, Bicicleta> getListaBicis() {return this.listaBicis;}
 
 	public void addBike(Bicicleta bk) throws IllegalStationAssociation, IncorrectStationCapacity {
-		bk.asignarBase(this);
+		CicloVidaBicicletas.asignarBase(bk, this);
 	}
 
 	public void removeBike(Bicicleta bk) throws IllegalStateChange, IncorrectStationCapacity {
-		bk.cambiarEstado(EstadoBicicleta.SIN_BASE, this);
+		CicloVidaBicicletas.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, this);
 	}
 	
 	 @Override
