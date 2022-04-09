@@ -1,7 +1,11 @@
 package es.Group3.BiciURJC.Service;
 
+import es.Group3.BiciURJC.exceptions.IllegalStateChange;
+import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
+import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
 import es.Group3.BiciURJC.model.Bicicleta;
 import es.Group3.BiciURJC.model.Estacion;
+import es.Group3.BiciURJC.model.EstadoBicicleta;
 import org.springframework.stereotype.Service;
 import java.util.Hashtable;
 import java.util.Set;
@@ -30,7 +34,7 @@ public class GestionEstaciones {
         st.setStateE(false);
         Set<String> keysBike = st.getListaBicis().keySet();
         for(String key : keysBike){
-            st.removeBike(st.getListaBicis().get(key));
+            removeBike(st.getListaBicis().get(key), st);
         }
     }
 
@@ -39,5 +43,13 @@ public class GestionEstaciones {
         for(String key : keysBike){
             st.getListaBicis().get(key).toString();
         }
+    }
+
+    public static void addBike(Bicicleta bk, Estacion st) throws IllegalStationAssociation, IncorrectStationCapacity {
+        CicloVidaBicicletas.asignarBase(bk, st);
+    }
+
+    public static void removeBike(Bicicleta bk, Estacion es) throws IllegalStateChange, IncorrectStationCapacity {
+        CicloVidaBicicletas.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, es);
     }
 }

@@ -42,7 +42,7 @@ public class CicloVidaBicicletas {
                 if (state == EstadoBicicleta.BAJA) {
                     bici.setEstado(EstadoBicicleta.BAJA);
                 } else if (state == EstadoBicicleta.EN_BASE) {
-                    st.addBike(bici);
+                    GestionEstaciones.addBike(bici, st);
                     bici.setEstado(EstadoBicicleta.EN_BASE);
                 } else {//RESERVADA O SIN BASE
                     throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());

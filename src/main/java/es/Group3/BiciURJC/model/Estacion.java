@@ -92,13 +92,6 @@ public class Estacion {
 
 	public Hashtable<String, Bicicleta> getListaBicis() {return this.listaBicis;}
 
-	public void addBike(Bicicleta bk) throws IllegalStationAssociation, IncorrectStationCapacity {
-		CicloVidaBicicletas.asignarBase(bk, this);
-	}
-
-	public void removeBike(Bicicleta bk) throws IllegalStateChange, IncorrectStationCapacity {
-		CicloVidaBicicletas.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, this);
-	}
 	
 	 @Override
 	    public String toString(){

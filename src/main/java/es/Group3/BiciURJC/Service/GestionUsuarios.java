@@ -7,13 +7,13 @@ import java.util.Hashtable;
 @Service
 public class GestionUsuarios {
 
-    public Hashtable<String, Usuario> users = new Hashtable<>();
+    public static Hashtable<String, Usuario> users = new Hashtable<>();
 
-    public void removeUser(Usuario us){
+    public static void removeUser(Usuario us){
         us.setState(false);
     }
 
-    public void editUser(Usuario us, String password, String fullName,  boolean state){
+    public static void editUser(Usuario us, String password, String fullName,  boolean state){
         Usuario myUser = users.get(us.getId());
         myUser.setPassword(password);
         myUser.setFullName(fullName);
@@ -21,7 +21,7 @@ public class GestionUsuarios {
         users.put(myUser.getId(), myUser);
     }
 
-    public void addUser(Usuario us){
+    public static void addUser(Usuario us){
         users.put(us.getId(), us);
     }
 
