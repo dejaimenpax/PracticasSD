@@ -54,7 +54,7 @@ public class CicloVidaBicicletas {
                     if (st.getListaBicis().remove(bici.getNum_serie()) != null) {
                         bici.setEstado(EstadoBicicleta.BAJA);
                     } else {
-                        throw new IllegalStationAssociation("Esta bici " + this.toString() + " no pertenece a esta estacion " + st.toString());
+                        throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + st.toString());
                     }
                 } else if (state == EstadoBicicleta.RESERVADA) {
                     bici.setEstado(EstadoBicicleta.RESERVADA);
@@ -62,7 +62,7 @@ public class CicloVidaBicicletas {
                     if (st.getListaBicis().remove(bici.getNum_serie()) != null) {
                         bici.setEstado(EstadoBicicleta.SIN_BASE);
                     } else {
-                        throw new IllegalStationAssociation("Esta bici " + this.toString() + " no pertenece a esta estacion " + st.toString());
+                        throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + st.toString());
                     }
                 } else {//RESERVADA
                     throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
