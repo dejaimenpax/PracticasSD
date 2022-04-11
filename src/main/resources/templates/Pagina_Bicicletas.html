@@ -9,6 +9,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<div class="bg-danger">
+    <div class="jumbotron">
+        <h3>Universidad Rey Juan Carlos</h3>
+    </div>
+</div>
+<div>
+    <h2>Bicicletas</h2>
+    <p>En esta tabla se muestran las bicicletas que registradas en la base de datos</p>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Modelo</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#bicicletasList}}
+        <tr>
+            <td>{{modelo}} {{fecha}} {{estado}}</td>
+        </tr>
+        {{/bicicletasList}}
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
