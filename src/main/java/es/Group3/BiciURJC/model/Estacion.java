@@ -22,6 +22,8 @@ public class Estacion {
 	private double lon; //coordenada longitud
 	private double lat; //coordenada latitud
 	private boolean stateE; //true=activa, false=inactiva
+
+	@SuppressWarnings("JpaAttributeTypeInspection")
 	private Hashtable<String, Bicicleta> listaBicis;
 	
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
