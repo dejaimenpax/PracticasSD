@@ -1,0 +1,27 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+
+}
+#navbarSupportedContent{
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    font-weight: bold;
+}
+.tablaDatos{
+    margin-top: 25px;
+    margin: 5%;
+}
+.botones{
+    border: 1px solid black;
+    padding: 5%;
+    margin: 5%;
+}
+.botones:hover{
+    background-color: rgba(248, 202, 51, 0.767);
+}
+
+.overflow{
+      property: overflow,
+      values: auto hidden visible scroll,
+    }

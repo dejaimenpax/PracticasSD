@@ -28,36 +28,30 @@
     </div>
 </nav>
 <!---TABLA-->
-<div class="tablaDatos">
-    <table class="table table-dark table-hover">
+
+<div>
+    <h2>Bicicletas</h2>
+    <p>En esta tabla se muestran las bicicletas que registradas en la base de datos</p>
+    <table class="table table-condensed">
         <thead>
         <tr>
-            <th scope="col"></th>
-            <th scope="col">Categorías</th>
+            <th>Modelo</th>
+            <th>Fecha</th>
+            <th>Estado</th>
         </tr>
         </thead>
+        <div class="overflow-scroll">
         <tbody>
+        {{#bicicletasList}}
         <tr>
-            <th scope="row">--></th>
-            <td>>Gestion de Bicicletas</td>
+            <td>{{modelo}}</td>
+            <td>{{fecha}}</td>
+            <td>{{estado}}</td>
         </tr>
-        <tr>
-            <th scope="row">--></th>
-            <td>Gestion de Estaciones</td>
-        </tr>
-        <tr>
-            <th scope="row">--></th>
-            <td >Usuarios</td>
-        </tr>
+        {{/bicicletasList}}
         </tbody>
+        </div>
     </table>
-</div>
-<!---Botones-->
-<div class="botones">
-    <h1>BOTONES</h1>
-</div>
-<div class="botones">
-    <h1>SEGUNDA ZONA DE BOTONES</h1>
 </div>
 
 <!-- Footer -->
@@ -164,7 +158,6 @@
     <!-- Footer -->
 </div>
 <!-- Footer -->
-
 
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>

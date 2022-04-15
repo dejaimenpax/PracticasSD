@@ -13,8 +13,10 @@ import javax.persistence.Id;
 public class Bicicleta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String num_serie;
+    private Long id;
 
+
+    private String num_serie;
     private String modelo;
     private String fecha;
 
@@ -22,8 +24,9 @@ public class Bicicleta {
 
     protected Bicicleta() {}
 
-    public Bicicleta(String modelo, String fecha) {
+    public Bicicleta(String num_serie, String modelo, String fecha) {
         super();
+        this.num_serie = num_serie;
         this.modelo = modelo;
         this.fecha = fecha;
     }

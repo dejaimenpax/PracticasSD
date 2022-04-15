@@ -17,6 +17,7 @@
 <div>
     <h2>Usuarios</h2>
     <p>En esta tabla se muestran los usuarios registrados en la base de datos</p>
+
     <table class="table table-condensed">
         <thead>
         <tr>
@@ -25,6 +26,7 @@
             <th>Estado</th>
         </tr>
         </thead>
+        <div class="overflow-scroll">
         <tbody>
         {{#usuariosList}}
         <tr>
@@ -34,7 +36,9 @@
         </tr>
         {{/usuariosList}}
         </tbody>
+        </div>
     </table>
+
 </div>
 </body>
 </html>
