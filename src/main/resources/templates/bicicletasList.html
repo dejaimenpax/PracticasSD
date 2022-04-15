@@ -32,6 +32,7 @@
 <div>
     <h2>Bicicletas</h2>
     <p>En esta tabla se muestran las bicicletas que registradas en la base de datos</p>
+    <div class="overflow-scroll">
     <table class="table table-condensed">
         <thead>
         <tr>
@@ -40,18 +41,19 @@
             <th>Estado</th>
         </tr>
         </thead>
-        <div class="overflow-scroll">
         <tbody>
+
         {{#bicicletasList}}
         <tr>
+
+            <td>{{num_serie}}</td>
             <td>{{modelo}}</td>
             <td>{{fecha}}</td>
-            <td>{{estado}}</td>
         </tr>
         {{/bicicletasList}}
         </tbody>
-        </div>
     </table>
+</div>
 </div>
 
 <!-- Footer -->
