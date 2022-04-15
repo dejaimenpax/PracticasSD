@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class Usuario{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private long id;
 
     private String password;
     private String fullName;
@@ -23,7 +23,7 @@ public class Usuario{
 
     protected Usuario() {}
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
@@ -55,7 +55,7 @@ public class Usuario{
         this.state = state;
     }
 
-    public Usuario(String id, String password, String fullName){
+    public Usuario(long id, String password, String fullName){
         super();
         this.id = id;
         this.password = password;

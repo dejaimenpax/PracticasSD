@@ -7,7 +7,7 @@ import java.util.Hashtable;
 @Service
 public class GestionUsuarios {
 
-    public static Hashtable<String, Usuario> users = new Hashtable<>();
+    public static Hashtable<Long, Usuario> users = new Hashtable<>();
 
     public static void removeUser(Usuario us){
         us.setState(false);

@@ -6,6 +6,7 @@ import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
 import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Hashtable;
@@ -14,9 +15,9 @@ import java.util.Hashtable;
 public class Estacion {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String idE;
+    private Long idE;
 	
-	private int num_serieE;
+	private String num_serieE;
 	private String insDate;
 	private int size;
 	private double lon; //coordenada longitud
@@ -25,12 +26,11 @@ public class Estacion {
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
 	private Hashtable<String, Bicicleta> listaBicis;
-	
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	
-	protected Estacion() {};
+	protected Estacion() {}
 	
-	public Estacion(int num_serieE, int size, int lon, int lat, boolean stateE) throws IncorrectStationCapacity {
+	public Estacion(String num_serieE, int size, int lon, int lat, boolean stateE) throws IncorrectStationCapacity {
 		super();
 		this.num_serieE = num_serieE;												//y el id se supone que lo asigna el sistema automaticamente
 		this.insDate = dtf.format(LocalDate.now());
@@ -40,13 +40,14 @@ public class Estacion {
 		this.lon = lon;
 		this.lat = lat;
 		this.stateE = stateE;
+		this.listaBicis = new Hashtable<>();
 	}
 
-	public int getNum_serieE() {
+	public String getNum_serieE() {
 		return num_serieE;
 	}
 
-	public void setNum_serieE(int num_serieE) {
+	public void setNum_serieE(String num_serieE) {
 		this.num_serieE = num_serieE;
 	}
 
@@ -90,7 +91,7 @@ public class Estacion {
 		this.lat = lat;
 	}
 
-	public String getIdE() {return this.idE;}
+	public Long getIdE() {return this.idE;}
 
 	public Hashtable<String, Bicicleta> getListaBicis() {return this.listaBicis;}
 

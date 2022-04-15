@@ -13,7 +13,7 @@ import java.util.Set;
 @Service
 public class GestionEstaciones {
 
-    public Hashtable<String, Estacion> stations = new Hashtable<>();
+    public Hashtable<Long, Estacion> stations = new Hashtable<>();
 
     public void addSt(Estacion st){
         stations.put(st.getIdE(), st);
