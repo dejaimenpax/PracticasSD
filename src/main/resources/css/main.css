@@ -13,9 +13,13 @@ body{
     margin: 5%;
 }
 .botones{
+    width: auto;
     border: 1px solid black;
-    padding: 5%;
-    margin: 5%;
+    border-radius: 15px;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    display: inline-block;
 }
 .botones:hover{
     background-color: rgba(248, 202, 51, 0.767);

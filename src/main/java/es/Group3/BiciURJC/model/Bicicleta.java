@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Bicicleta {
@@ -18,17 +20,19 @@ public class Bicicleta {
 
     private String num_serie;
     private String modelo;
-    private String fecha;
+    private String entryDate;
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
     private EstadoBicicleta estado;
 
     protected Bicicleta() {}
 
-    public Bicicleta(String num_serie, String modelo, String fecha) {
+    public Bicicleta(String num_serie, String modelo, EstadoBicicleta estado) {
         super();
         this.num_serie = num_serie;
         this.modelo = modelo;
-        this.fecha = fecha;
+        this.entryDate = dtf.format(LocalDate.now());
+        this.estado = estado;
     }
 
     public String getNum_serie() {
@@ -44,11 +48,11 @@ public class Bicicleta {
     }
 
     public String getFecha() {
-        return fecha;
+        return entryDate;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFecha(String entryDate) {
+        this.entryDate = entryDate;
     }
 
     public EstadoBicicleta getEstado() {
@@ -64,7 +68,7 @@ public class Bicicleta {
         return "CicloVidaBicicletas{" +
                 "num_serie='" + num_serie + '\'' +
                 ", modelo='" + modelo + '\'' +
-                ", fecha='" + fecha + '\'' +
+                ", fecha='" + entryDate + '\'' +
                 '}';
     }
 

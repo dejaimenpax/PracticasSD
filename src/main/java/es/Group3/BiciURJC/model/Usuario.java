@@ -55,9 +55,8 @@ public class Usuario{
         this.state = state;
     }
 
-    public Usuario(long id, String password, String fullName){
+    public Usuario(String password, String fullName){
         super();
-        this.id = id;
         this.password = password;
         this.fullName = fullName;
         this.entryDate = dtf.format(LocalDate.now());

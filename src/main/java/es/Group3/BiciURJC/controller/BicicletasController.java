@@ -13,8 +13,8 @@ import java.util.List;
 public class BicicletasController {
     @Autowired
     private BicicletasRepository bicicletas;
-    @GetMapping("/list")
-    public String lists(Model model) {
+    @GetMapping("/bicicletas")
+    public String listbycicle(Model model) {
         List<Bicicleta> bicicletasList = bicicletas.findAll();
         model.addAttribute("bicicletasList", bicicletasList);
         return "bicicletasList";
