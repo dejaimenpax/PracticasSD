@@ -65,7 +65,15 @@
 
 <!---Botones-->
 <div class="botones">
-    <p>Añadir Estacion</p>//misma pantalla
+    <form action="/addEstacion">
+        <p>Añadir estacion:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
+        <input type='text' name='num_serie'/>
+        <input type='number' name='size'/>
+        <input type='number' name='lon'/>
+        <input type='number' name='lat'/>
+        <input type='checkbox' name='state'>
+        <input type='submit' value='Enviar'/>
+    </form>
 </div>
 <div class="botones">
     <p>Eliminar Estacion</p>//desde la lista de estaciones
