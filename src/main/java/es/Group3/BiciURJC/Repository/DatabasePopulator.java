@@ -30,7 +30,6 @@ public class DatabasePopulator {
     public void populateDB(){
         //Introducir los datos de precarga
         blogbicicletasrepository.saveAll(Arrays.asList(
-
                 new Bicicleta("1234","BMX", SIN_BASE),
                 new Bicicleta("5678","DH", SIN_BASE)
         ));
@@ -38,7 +37,8 @@ public class DatabasePopulator {
                 new Estacion("Hola",5,2,2,true)
         ));
         blogusuariosrepository.saveAll(Arrays.asList(
-                new Usuario("8","Juan")
+                new Usuario("8","Juan"),
+                new Usuario("12", "Pedro")
         ));
     }
 

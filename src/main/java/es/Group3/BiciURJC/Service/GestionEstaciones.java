@@ -16,7 +16,7 @@ public class GestionEstaciones {
     public Hashtable<Long, Estacion> stations = new Hashtable<>();
 
     public void addSt(Estacion st){
-        stations.put(st.getIdE(), st);
+        stations.put(st.getId(), st);
     }
 
     public String detailSt (Estacion st){
@@ -24,14 +24,14 @@ public class GestionEstaciones {
     }
 
     public void modCoord(Estacion st, long lon, long lat){
-        Estacion mySt = stations.get(st.getIdE());
+        Estacion mySt = stations.get(st.getId());
         mySt.setLat(lat);
         mySt.setLon(lon);
-        stations.put(mySt.getIdE(), mySt);
+        stations.put(mySt.getId(), mySt);
     }
 
     public void deleteSt(Estacion st){
-        st.setStateE(false);
+        st.setState(false);
         Set<String> keysBike = st.getListaBicis().keySet();
         for(String key : keysBike){
             removeBike(st.getListaBicis().get(key), st);

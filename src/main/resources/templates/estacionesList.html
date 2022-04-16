@@ -18,8 +18,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <a class="nav-link link-light" href="#">URJC</a>
-            <a class="nav-link link-light" href="#">BICIS URJC</a>
+            <a class="nav-link link-light" href="/">URJC</a>
+            <a class="nav-link link-light" href="/">BICIS URJC</a>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-warning mx-1" type="submit">Search</button>
@@ -37,8 +37,11 @@
         <thead>
         <tr>
 
-            <th>Identificador</th>
+            <th>Num_Serie</th>
             <th>Fecha de creacion</th>
+            <th>Capacidad</th>
+            <th>Longitud</th>
+            <th>Latitud</th>
             <th>Estado</th>
         </tr>
         </thead>
@@ -47,9 +50,12 @@
         {{#estacionesList}}
         <tr>
 
-            <td>{{identificador}}</td>
-            <td>{{fecha de creacion}}</td>
-            <td>{{estado}}</td>
+            <td>{{num_serie}}</td>
+            <td>{{entryDate}}</td>
+            <td>{{size}}</td>
+            <td>{{lon}}</td>
+            <td>{{lat}}</td>
+            <td>{{state}}</td>
         </tr>
         {{/estacionesList}}
         </tbody>

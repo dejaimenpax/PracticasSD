@@ -18,8 +18,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <a class="nav-link link-light" href="#">URJC</a>
-            <a class="nav-link link-light" href="#">BICIS URJC</a>
+            <a class="nav-link link-light" href="/">URJC</a>
+            <a class="nav-link link-light" href="/">BICIS URJC</a>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-warning mx-1" type="submit">Search</button>
@@ -30,29 +30,39 @@
 <!---TABLA-->
 
 <div>
-    <h2>Usuarios</h2>
-    <p>En esta tabla se muestran los usuarios registrados en la base de datos</p>
+    <h2>Bicicletas</h2>
+    <p>En esta tabla se muestran las bicicletas que registradas en la base de datos</p>
     <div class="overflow-scroll">
-    <table class="table table-condensed">
-        <thead>
-        <tr>
-            <th>Nombre completo</th>
-            <th>Fecha de registro</th>
-            <th>Estado</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        {{#usuariosList}}
-        <tr>
-            <td>{{nombre completo}}</td>
-            <td>{{fecha de registro}}</td>
-            <td>{{estado}}</td>
-        </tr>
-        {{/usuariosList}}
-        </tbody>
-    </table>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#usuariosList}}
+            <tr>
+                <td>{{fullName}}</td>
+                <td>{{entryDate}}</td>
+                <td>{{state}}</td>
+            </tr>
+            {{/usuariosList}}
+            </tbody>
+        </table>
     </div>
+</div>
+
+<!---Botones-->
+<div class="botones">
+    <p>Añadir Bicicleta</p>
+</div>
+<div class="botones">
+    <p>Eliminar Bicicleta</p>
+</div>
+<div class="botones">
+    <p>Modificar Bicicleta</p>
 </div>
 
 <!-- Footer -->

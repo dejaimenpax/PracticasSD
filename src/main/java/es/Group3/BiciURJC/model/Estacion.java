@@ -15,14 +15,14 @@ import java.util.Hashtable;
 public class Estacion {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idE;
+    private Long id;
 	
-	private String num_serieE;
-	private String insDate;
+	private String num_serie;
+	private String entryDate;
 	private int size;
 	private double lon; //coordenada longitud
 	private double lat; //coordenada latitud
-	private boolean stateE; //true=activa, false=inactiva
+	private boolean state; //true=activa, false=inactiva
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
 	private Hashtable<String, Bicicleta> listaBicis;
@@ -30,41 +30,42 @@ public class Estacion {
 	
 	protected Estacion() {}
 	
-	public Estacion(String num_serieE, int size, int lon, int lat, boolean stateE) throws IncorrectStationCapacity {
+	public Estacion(String num_serie, int size, int lon, int lat, boolean state) throws IncorrectStationCapacity {
 		super();
-		this.num_serieE = num_serieE;												//y el id se supone que lo asigna el sistema automaticamente
-		this.insDate = dtf.format(LocalDate.now());
+		this.num_serie = num_serie;//y el id se supone que lo asigna el sistema automaticamente
+		this.entryDate = dtf.format(LocalDate.now());
 		if (size!=5 && size!=10){
 			throw new IncorrectStationCapacity("Station capacity should be 5 or 10. Given: " + size);
 		}
 		this.lon = lon;
 		this.lat = lat;
-		this.stateE = stateE;
+		this.state = state;
+		this.size = size;
 		this.listaBicis = new Hashtable<>();
 	}
 
-	public String getNum_serieE() {
-		return num_serieE;
+	public String getNum_serie() {
+		return num_serie;
 	}
 
-	public void setNum_serieE(String num_serieE) {
-		this.num_serieE = num_serieE;
+	public void setNum_serie(String num_serie) {
+		this.num_serie = num_serie;
 	}
 
-	public String getInsDate() {
-		return insDate;
+	public String getentryDate() {
+		return entryDate;
 	}
 
-	public void setInsDate(String insDate) {
-		this.insDate = insDate;
+	public void setentryDate(String entryDate) {
+		this.entryDate = entryDate;
 	}
 
-	public boolean isStateE() {
-		return stateE;
+	public boolean isState() {
+		return state;
 	}
 
-	public void setStateE(boolean stateE) {
-		this.stateE = stateE;
+	public void setState(boolean state) {
+		this.state = state;
 	}
 
 	public int getSize() {
@@ -91,16 +92,16 @@ public class Estacion {
 		this.lat = lat;
 	}
 
-	public Long getIdE() {return this.idE;}
+	public Long getId() {return this.id;}
 
 	public Hashtable<String, Bicicleta> getListaBicis() {return this.listaBicis;}
 
 	
 	 @Override
 	    public String toString(){
-	        return("Estación " + num_serieE + ", id: "+ idE + ", fecha: " + insDate +
+	        return("Estación " + num_serie + ", id: "+ id + ", fecha: " + entryDate +
 	        		", capacidad: " + size + ", longitud: " + lon + ", latitud" + lat +
-	        		", estado: " + stateE);
+	        		", estado: " + state);
 	    }
 
 }
