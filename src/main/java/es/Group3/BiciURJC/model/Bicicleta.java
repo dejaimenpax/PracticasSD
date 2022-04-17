@@ -4,10 +4,7 @@ import es.Group3.BiciURJC.exceptions.IllegalStateChange;
 import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
 import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -24,6 +21,9 @@ public class Bicicleta {
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
     private EstadoBicicleta estado;
+
+    @ManyToOne
+    private Estacion estacion;
 
     protected Bicicleta() {}
 

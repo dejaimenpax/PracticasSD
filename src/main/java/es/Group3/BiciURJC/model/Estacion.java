@@ -25,6 +25,7 @@ public class Estacion {
 	private EstadoEstacion state;
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
+	@OneToMany(mappedBy = "estacion", cascade = CascadeType.ALL, orphanRemoval = false)
 	private Hashtable<String, Bicicleta> listaBicis;
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	

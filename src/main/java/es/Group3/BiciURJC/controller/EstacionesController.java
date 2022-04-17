@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -28,5 +30,11 @@ public class EstacionesController {
         estacion.save(st);
         log.trace("New post identifier " + st.getId());
         return "redirect:/estaciones";//para que se añada a la lista, llamar al primer metodo de la clase controller
+    }
+    @DeleteMapping("/removeEstacion")
+    public String removeStation(Model model, @RequestParam long id) {
+        log.trace("Bicicleta identifier " + id);
+        estacion.deleteById(id);
+        return "redirect:/estaciones";
     }
 }
