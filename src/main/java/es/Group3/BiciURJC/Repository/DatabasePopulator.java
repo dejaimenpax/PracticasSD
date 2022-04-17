@@ -24,7 +24,7 @@ public class DatabasePopulator {
     private EstacionRepository blogestacionrepository;
 
     @PostConstruct
-    public void populateBicyclesDB(){
+    public void populateDB(){
         //Introducir los datos de precarga
         blogbicicletasrepository.saveAll(Arrays.asList(
                 new Bicicleta("1234","BMX", SIN_BASE),
