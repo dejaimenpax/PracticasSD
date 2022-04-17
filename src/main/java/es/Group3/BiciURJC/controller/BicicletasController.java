@@ -49,7 +49,15 @@ public class BicicletasController {
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
-    @GetMapping("/modifedbicicleta")
+    @GetMapping("/asignabasebicicleta")
+    public String asignabasebicicleta(Model model, @RequestParam long id_bicicleta, @RequestParam long id_estacion) {
+        Bicicleta bicicleta = bicicletas.findById(id_bicicleta).get();
+        Estacion estacion = estaciones.findById(id_estacion).get();
+        //CicloVidaBicicletas.asignarBase(bicicleta,estacion);
+        return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
+    }
+
+    @GetMapping("/modifiedbicicleta")
     public String modifiedBicicleta(Model model, @RequestParam long id_bicicleta, @RequestParam String state) {
         Bicicleta bicicleta = bicicletas.findById(id_bicicleta).get();
         CicloVidaBicicletas.cambiarEstado(bicicleta, EstadoBicicleta.valueOf(state),bicicleta.getEstacion());
@@ -57,7 +65,7 @@ public class BicicletasController {
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
-    @DeleteMapping("/removebicicleta")
+    @GetMapping("/removebicicleta")
     public String removeBicicleta(Model model, @RequestParam long id) {
         log.trace("Bicicleta identifier " + id);
         bicicletas.deleteById(id);
