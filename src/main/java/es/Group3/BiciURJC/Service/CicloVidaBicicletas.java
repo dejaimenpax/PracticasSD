@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Optional;
 
 @Service
 public class CicloVidaBicicletas {
@@ -25,7 +26,7 @@ public class CicloVidaBicicletas {
         }
         else{//SIN_BASE
             if(st.getListaBicis().size()<st.getSize()){
-                st.getListaBicis().put(bici.getNum_serie(), bici);
+                st.getListaBicis().add(bici);
                 bici.setEstado(EstadoBicicleta.EN_BASE);
             }
             else{
@@ -51,7 +52,7 @@ public class CicloVidaBicicletas {
                 throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
             case EN_BASE:
                 if (state == EstadoBicicleta.BAJA) {
-                    if (st.getListaBicis().remove(bici.getNum_serie()) != null) {
+                    if (st.getListaBicis().contains(bici)) {
                         bici.setEstado(EstadoBicicleta.BAJA);
                     } else {
                         throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + st.toString());
@@ -59,7 +60,7 @@ public class CicloVidaBicicletas {
                 } else if (state == EstadoBicicleta.RESERVADA) {
                     bici.setEstado(EstadoBicicleta.RESERVADA);
                 } else if (state == EstadoBicicleta.SIN_BASE) {
-                    if (st.getListaBicis().remove(bici.getNum_serie()) != null) {
+                    if (st.getListaBicis().contains(bici)) {
                         bici.setEstado(EstadoBicicleta.SIN_BASE);
                     } else {
                         throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + st.toString());

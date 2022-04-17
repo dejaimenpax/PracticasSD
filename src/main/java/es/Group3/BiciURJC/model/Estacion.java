@@ -4,12 +4,15 @@ import es.Group3.BiciURJC.Service.CicloVidaBicicletas;
 import es.Group3.BiciURJC.exceptions.IllegalStateChange;
 import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
 import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 @Entity
 public class Estacion {
@@ -26,7 +29,7 @@ public class Estacion {
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
 	@OneToMany(mappedBy = "estacion", cascade = CascadeType.ALL, orphanRemoval = false)
-	private Hashtable<String, Bicicleta> listaBicis;
+	private List<Bicicleta> listaBicis;
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	
 	protected Estacion() {}
@@ -42,7 +45,7 @@ public class Estacion {
 		this.lat = lat;
 		this.state = state;
 		this.size = size;
-		this.listaBicis = new Hashtable<>();
+		this.listaBicis = new ArrayList<>();
 	}
 
 	public String getNum_serie() {
@@ -95,7 +98,7 @@ public class Estacion {
 
 	public Long getId() {return this.id;}
 
-	public Hashtable<String, Bicicleta> getListaBicis() {return this.listaBicis;}
+	public List<Bicicleta> getListaBicis() {return this.listaBicis;}
 
 	
 	 @Override

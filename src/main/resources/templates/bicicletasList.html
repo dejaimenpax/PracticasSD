@@ -74,16 +74,24 @@
 </div>
 <div class="botones">
     <form action="/removebicicleta">
-        <p>Borrar bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
+        <p>Añadir bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
         <input type='number' name='id'/>
         <input type='submit' value='Enviar'/>
     </form>
 </div>
 <div class="botones">
-    <p>Eliminar Bicicleta</p>
-</div>
-<div class="botones">
-    <p>Modificar Bicicleta</p>
+    <form action="/modifiedbicicleta">
+        <p>Modificar bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
+        <input type='text' name='id_bicicleta'/>
+        <input type='text' name='id_estacion'/>
+        <select name="estado">
+            <option value="SIN_BASE">Sin base</option>
+            <option value="EN_BASE">En base</option>
+            <option value="RESERVADA">Reservada</option>
+            <option value="BAJA">Baja</option>
+        </select>
+        <input type='submit' value='Enviar'/>
+    </form>
 </div>
 
 <!-- Footer -->

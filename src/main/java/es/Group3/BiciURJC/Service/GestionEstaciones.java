@@ -31,23 +31,27 @@ public class GestionEstaciones {
         stations.put(mySt.getId(), mySt);
     }
 
-    public void deleteSt(Estacion st){
+    /*public void deleteSt(Estacion st){
         st.setState(EstadoEstacion.INACTIVA);
         Set<String> keysBike = st.getListaBicis().keySet();
         for(String key : keysBike){
             removeBike(st.getListaBicis().get(key), st);
         }
-    }
+    }*/
 
-    public void detailsBikes(Estacion st){
+    /*public void detailsBikes(Estacion st){
         Set<String> keysBike = st.getListaBicis().keySet();
         for(String key : keysBike){
             st.getListaBicis().get(key).toString();
         }
-    }
+    }*/
 
     public static void addBike(Bicicleta bk, Estacion st) throws IllegalStationAssociation, IncorrectStationCapacity {
         CicloVidaBicicletas.asignarBase(bk, st);
+    }
+
+    public Estacion getEstacion(long id){
+        return stations.get(id);
     }
 
     public static void removeBike(Bicicleta bk, Estacion es) throws IllegalStateChange, IncorrectStationCapacity {

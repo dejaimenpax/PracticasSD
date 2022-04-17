@@ -27,7 +27,7 @@ public class Bicicleta {
 
     protected Bicicleta() {}
 
-    public Bicicleta(String num_serie, String modelo, EstadoBicicleta estado) {
+    public Bicicleta(String num_serie, String modelo, EstadoBicicleta estado){
         super();
         this.num_serie = num_serie;
         this.modelo = modelo;
@@ -65,6 +65,10 @@ public class Bicicleta {
 
     public void setEstado(EstadoBicicleta estado) {
         this.estado = estado;
+    }
+
+    public Estacion getEstacion() {
+        return estacion;
     }
 
     @Override
