@@ -1,7 +1,12 @@
 package es.Group3.BiciURJC.model;
 
 public enum EstadoBicicleta {
-    SIN_BASE, EN_BASE, RESERVADA, BAJA;
+    SIN_BASE(1), EN_BASE(2), RESERVADA(3), BAJA(4);
+
+    private int value;
+    EstadoBicicleta(int i) {
+        this.value = i;
+    }
 
     @Override
     public String toString(){

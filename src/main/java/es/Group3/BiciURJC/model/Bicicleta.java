@@ -35,6 +35,10 @@ public class Bicicleta {
         this.estado = estado;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getNum_serie() {
         return num_serie;
     }
