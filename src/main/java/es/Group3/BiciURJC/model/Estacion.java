@@ -22,7 +22,7 @@ public class Estacion {
 	private int size;
 	private double lon; //coordenada longitud
 	private double lat; //coordenada latitud
-	private boolean state; //true=activa, false=inactiva
+	private EstadoEstacion state;
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
 	private Hashtable<String, Bicicleta> listaBicis;
@@ -30,7 +30,7 @@ public class Estacion {
 	
 	protected Estacion() {}
 	
-	public Estacion(String num_serie, int size, int lon, int lat, boolean state) throws IncorrectStationCapacity {
+	public Estacion(String num_serie, int size, int lon, int lat, EstadoEstacion state) throws IncorrectStationCapacity {
 		super();
 		this.num_serie = num_serie;//y el id se supone que lo asigna el sistema automaticamente
 		this.entryDate = dtf.format(LocalDate.now());
@@ -60,11 +60,11 @@ public class Estacion {
 		this.entryDate = entryDate;
 	}
 
-	public boolean isState() {
+	public EstadoEstacion isState() {
 		return state;
 	}
 
-	public void setState(boolean state) {
+	public void setState(EstadoEstacion state) {
 		this.state = state;
 	}
 

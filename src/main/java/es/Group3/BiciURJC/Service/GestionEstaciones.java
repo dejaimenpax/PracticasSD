@@ -6,6 +6,7 @@ import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
 import es.Group3.BiciURJC.model.Bicicleta;
 import es.Group3.BiciURJC.model.Estacion;
 import es.Group3.BiciURJC.model.EstadoBicicleta;
+import es.Group3.BiciURJC.model.EstadoEstacion;
 import org.springframework.stereotype.Service;
 import java.util.Hashtable;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class GestionEstaciones {
     }
 
     public void deleteSt(Estacion st){
-        st.setState(false);
+        st.setState(EstadoEstacion.INACTIVA);
         Set<String> keysBike = st.getListaBicis().keySet();
         for(String key : keysBike){
             removeBike(st.getListaBicis().get(key), st);

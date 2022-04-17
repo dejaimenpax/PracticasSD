@@ -1,9 +1,6 @@
 package es.Group3.BiciURJC.Repository;
 
-import es.Group3.BiciURJC.model.Bicicleta;
-import es.Group3.BiciURJC.model.Estacion;
-import es.Group3.BiciURJC.model.EstadoBicicleta;
-import es.Group3.BiciURJC.model.Usuario;
+import es.Group3.BiciURJC.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -27,15 +24,17 @@ public class DatabasePopulator {
     private EstacionRepository blogestacionrepository;
 
     @PostConstruct
-    public void populateDB(){
+    public void populateBicyclesDB(){
         //Introducir los datos de precarga
         blogbicicletasrepository.saveAll(Arrays.asList(
                 new Bicicleta("1234","BMX", SIN_BASE),
                 new Bicicleta("5678","DH", SIN_BASE)
         ));
+
         blogestacionrepository.saveAll(Arrays.asList(
-                new Estacion("Hola",5,2,2,true)
+                new Estacion("Hola",5,2,2, EstadoEstacion.ACTIVA)
         ));
+
         blogusuariosrepository.saveAll(Arrays.asList(
                 new Usuario("8","Juan"),
                 new Usuario("12", "Pedro")

@@ -6,6 +6,6 @@ public enum EstadoBicicleta {
     @Override
     public String toString(){
         //devuelve "sin base", "en base", "reservada" o "baja"
-        return this.name().replaceAll("_", " ").toLowerCase();
+        return this.name().charAt(0) + this.name().substring(1).replaceAll("_", " ").toLowerCase();
     }
 }

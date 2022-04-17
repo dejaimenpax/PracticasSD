@@ -11,19 +11,17 @@ import java.time.format.DateTimeFormatter;
 public class Usuario{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String password;
     private String fullName;
     private String entryDate;
-    private boolean state; //true=activado, false=desactivado
+    private EstadoUsuario state;
     //private BufferedImage BufferedImage photo;
 
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
-    protected Usuario() {}
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -47,20 +45,22 @@ public class Usuario{
         return entryDate;
     }
 
-    public boolean isState() {
+    public EstadoUsuario getState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(EstadoUsuario state) {
         this.state = state;
     }
+
+    protected Usuario() {}
 
     public Usuario(String password, String fullName){
         super();
         this.password = password;
         this.fullName = fullName;
         this.entryDate = dtf.format(LocalDate.now());
-        state = true;
+        this.state = EstadoUsuario.ACTIVO;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package es.Group3.BiciURJC.Service;
 
+import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,10 @@ public class GestionUsuarios {
     public static Hashtable<Long, Usuario> users = new Hashtable<>();
 
     public static void removeUser(Usuario us){
-        us.setState(false);
+        us.setState(EstadoUsuario.INACTIVO);
     }
 
-    public static void editUser(Usuario us, String password, String fullName,  boolean state){
+    public static void editUser(Usuario us, String password, String fullName, EstadoUsuario state){
         Usuario myUser = users.get(us.getId());
         myUser.setPassword(password);
         myUser.setFullName(fullName);
