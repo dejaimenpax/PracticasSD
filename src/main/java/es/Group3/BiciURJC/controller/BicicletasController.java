@@ -39,6 +39,13 @@ public class BicicletasController {
         return "bicicletasList";
     }
 
+    @GetMapping("/bicicletas/busqueda")
+    public String view(Model model, @RequestParam long id_bicicleta){
+        Bicicleta bici = bicicletas.findById(id_bicicleta).get();
+        model.addAttribute("busqueda", bici);
+        return "view-busqueda";
+    }
+
     @GetMapping("/addbicicleta")
     public String addBicicleta(@RequestParam String num_serie, @RequestParam String modelo) {
         Bicicleta bicicleta = new Bicicleta(num_serie,modelo, EstadoBicicleta.SIN_BASE);
