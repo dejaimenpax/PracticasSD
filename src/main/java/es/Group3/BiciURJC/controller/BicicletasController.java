@@ -9,9 +9,13 @@ import es.Group3.BiciURJC.model.EstadoBicicleta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.OneToOne;
@@ -36,30 +40,31 @@ public class BicicletasController {
     }
 
     @GetMapping("/addbicicleta")
-    public String addBicicleta(Model model, @RequestParam String num_serie, @RequestParam String modelo) {
+    public String addBicicleta(@RequestParam String num_serie, @RequestParam String modelo) {
         Bicicleta bicicleta = new Bicicleta(num_serie,modelo, EstadoBicicleta.SIN_BASE);
-        log.trace("Bicicleta identifier " + bicicleta.getId());
         bicicletas.save(bicicleta);
         log.trace("New post identifier " + bicicleta.getId());
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
     @GetMapping("/asignabasebicicleta")
-    public String asignabasebicicleta(Model model, @RequestParam long id_bicicleta, @RequestParam long id_estacion) {
+    public String asignabasebicicleta(@RequestParam long id_bicicleta, @RequestParam long id_estacion) {
         Bicicleta bicicleta = bicicletas.findById(id_bicicleta).get();
         Estacion estacion = estaciones.findById(id_estacion).get();
         CicloVidaBicicletas gestor = new CicloVidaBicicletas();
         gestor.asignarBase(bicicleta,estacion);
+        bicicletas.save(bicicleta);
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
     @GetMapping("/modifiedbicicleta")
-    public String modifiedBicicleta(Model model, @RequestParam long id_bicicleta, @RequestParam String state){
+    public String modifiedBicicleta(@RequestParam long id_bicicleta, @RequestParam String state){
         Bicicleta bicicleta = bicicletas.findById(id_bicicleta).get();
         Estacion estacion = bicicleta.getEstacion();
         EstadoBicicleta estado = EstadoBicicleta.valueOf(state);
         CicloVidaBicicletas gestor = new CicloVidaBicicletas();
         gestor.cambiarEstado(bicicleta,estado,estacion);
+        bicicletas.save(bicicleta);
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
