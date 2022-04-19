@@ -49,6 +49,7 @@ public class CicloVidaBicicletas {
                 } else {//RESERVADA O SIN BASE
                     throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
                 }
+                break;
             case RESERVADA://como no se va a usar en esta practica, que tire una excepcion y ya
                 throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
             case EN_BASE:
@@ -69,6 +70,7 @@ public class CicloVidaBicicletas {
                 } else {//RESERVADA
                     throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
                 }
+                break;
             default:
                 throw new RuntimeException("Error inesperado en el cambio de estado");
         }
