@@ -48,7 +48,7 @@
         <tbody>
         {{#estacionesList}}
         <tr>
-            <td><a href="/detallesEstacion">{{num_serie}}</a></td>
+            <td><a href="/detallesEstacion/{{num_serie}}">{{num_serie}}</a></td>
             <td>{{entryDate}}</td>
             <td>{{size}}</td>
             <td>{{lon}}</td>
@@ -64,17 +64,20 @@
 <!---Botones-->
 <div class="botones">
     <form action="/addEstacion">
-        <p>Añadir estacion:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='text' name='num_serie'/>
+        <p>Añadir estacion:</p>
+        <input type='text' pattern="[A-Za-z0-9]{1,16}" name='num_serie'/>
         <input type='number' name='size'/>
         <input type='number' name='lon'/>
         <input type='number' name='lat'/>
-        <input type='checkbox' name='state'>
+        <select name="state">
+            <option value="ACTIVA">ACTIVA</option>
+            <option value="INACTIVA">INACTIVA</option>
+        </select>
         <input type='submit' value='Enviar'/>
     </form>
 </div>
 <div class="botones">
-    <p>Eliminar Estacion:</p><!--desde la lista de estaciones-->
+    <p>Eliminar Estacion:</p>
 </div>
 <div class="botones">
     <p>Modificar Coordenadas</p>//desde la lista de estaciones y hacia nueva pantalla
