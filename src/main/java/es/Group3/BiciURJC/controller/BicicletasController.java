@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.OneToOne;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,12 +34,11 @@ public class BicicletasController {
     private Logger log = LoggerFactory.getLogger(BicicletasController.class);
 
     @GetMapping("/bicicletas")
-    public String listbycicle(Model model) {
+    public String listbycicle(Model model) { //
         List<Bicicleta> bicicletasList = bicicletas.findAll();
         model.addAttribute("bicicletasList", bicicletasList);
         return "bicicletasList";
     }
-
 
     @GetMapping("/addbicicleta")
     public String addBicicleta(Model model, @RequestParam String num_serie, @RequestParam String modelo) {

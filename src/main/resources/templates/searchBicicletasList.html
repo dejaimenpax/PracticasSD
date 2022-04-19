@@ -30,76 +30,31 @@
 <!---TABLA-->
 
 <div>
-    <h2>Bicicletas</h2>
-    <p>En esta tabla se muestran las bicicletas que registradas en la base de datos</p>
+    <h2>Búsqueda de bicicletas</h2>
+    <p>En esta tabla se muestran los resultados de su búsqueda:</p>
     <div class="overflow-scroll">
-    <table class="table table-condensed">
-        <thead>
-        <tr>
-            <th>Num_Serie</th>
-            <th>Modelo</th>
-            <th>Fecha</th>
-            <th>Estado</th>
-        </tr>
-        </thead>
-        <tbody>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Num_Serie</th>
+                <th>Modelo</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        {{#bicicletasList}}
-        <tr>
-            <td>{{num_serie}}</td>
-            <td>{{modelo}}</td>
-            <td>{{entryDate}}</td>
-            <td>{{estado}}</td>
-        </tr>
-        {{/bicicletasList}}
-        </tbody>
-    </table>
-</div>
-</div>
-
-<!---Botones-->
-<div class="botones">
-    <form action="/addbicicleta">
-        <p>Añadir bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='text' name='num_serie'/>
-        <input type='text' name='modelo'/>
-        <select name="estado">
-            <option value="SIN_BASE">Sin base</option>
-            <option value="EN_BASE">En base</option>
-            <option value="RESERVADA">Reservada</option>
-            <option value="BAJA">Baja</option>
-        </select>
-        <input type='submit' value='Enviar'/>
-    </form>
-</div>
-<div class="botones">
-    <form action="/removebicicleta">
-        <p>Eliminar bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='number' name='id'/>
-        <input type='submit' value='Enviar'/>
-    </form>
-</div>
-<div class="botones">
-    <form action="/asignabasebicicleta">
-        <p>Añadir base a bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='number' name='id_bicicleta'/>
-        <input type='number' name="id_estacion"/>
-        <input type='submit' value='Enviar'/>
-    </form>
-</div>
-<div class="botones">
-    <form action="/modifiedbicicleta">
-        <p>Modificar bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='text' name='id_bicicleta'/>
-        <input type='text' name='id_estacion'/>
-        <select name="estado">
-            <option value="SIN_BASE">Sin base</option>
-            <option value="EN_BASE">En base</option>
-            <option value="RESERVADA">Reservada</option>
-            <option value="BAJA">Baja</option>
-        </select>
-        <input type='submit' value='Enviar'/>
-    </form>
+            {{#searchBicicletasList}}
+            <tr>
+                <td>{{num_serie}}</td>
+                <td>{{modelo}}</td>
+                <td>{{entryDate}}</td>
+                <td>{{estado}}</td>
+            </tr>
+            {{/searchBicicletasList}}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Footer -->
@@ -210,5 +165,4 @@
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 </body>
-
 </html>
