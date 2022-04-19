@@ -60,7 +60,7 @@
 <div class="botones">
     <form action="/addbicicleta">
         <p>Añadir bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='text' name='num_serie'/>
+        <input type='text' pattern="[A-Za-z0-9].{16}" name='num_serie'/>
         <input type='text' name='modelo'/>
         <input type='submit' value='Enviar'/>
     </form>
@@ -75,8 +75,8 @@
 <div class="botones">
     <form action="/asignabasebicicleta">
         <p>Añadir base a bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='number' name='id_bicicleta'/>
-        <input type='number' name='id_estacion'/>
+        <input type='text' name='numserie_bicicleta'/>
+        <input type='text' name='numserie_estacion'/>
         <input type='submit' value='Enviar'/>
     </form>
 </div>

@@ -48,9 +48,9 @@ public class BicicletasController {
     }
 
     @GetMapping("/asignabasebicicleta")
-    public String asignabasebicicleta(@RequestParam long id_bicicleta, @RequestParam long id_estacion) {
-        Bicicleta bicicleta = bicicletas.findById(id_bicicleta).get();
-        Estacion estacion = estaciones.findById(id_estacion).get();
+    public String asignabasebicicleta(@RequestParam String numserie_bicicleta, @RequestParam String numserie_estacion) {
+        Bicicleta bicicleta = bicicletas.findByNum_Serie(numserie_bicicleta);
+        Estacion estacion = estaciones.findByNum_Serie(numserie_estacion);
         CicloVidaBicicletas gestor = new CicloVidaBicicletas();
         gestor.asignarBase(bicicleta,estacion);
         bicicletas.save(bicicleta);

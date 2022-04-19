@@ -14,7 +14,7 @@ public class Bicicleta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
+    @Column(length = 16, unique = true)
     private String num_serie;
     private String modelo;
     private String entryDate;
