@@ -71,6 +71,10 @@ public class Bicicleta {
         return estacion;
     }
 
+    public void setEstacion(Estacion estacion) {
+        this.estacion = estacion;
+    }
+
     @Override
     public String toString() {
         return "CicloVidaBicicletas{" +

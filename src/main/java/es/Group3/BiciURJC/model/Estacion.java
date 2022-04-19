@@ -29,7 +29,7 @@ public class Estacion {
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
 	@OneToMany(mappedBy = "estacion", orphanRemoval = false)
-	private List<Bicicleta> listaBicis;
+	private List<Bicicleta> listaBicis = new ArrayList<>();
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	
 	protected Estacion() {}
@@ -45,7 +45,6 @@ public class Estacion {
 		this.lat = lat;
 		this.state = state;
 		this.size = size;
-		this.listaBicis = new ArrayList<>();
 	}
 
 	public String getNum_serie() {

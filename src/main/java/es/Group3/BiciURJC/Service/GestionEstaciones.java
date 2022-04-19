@@ -46,15 +46,17 @@ public class GestionEstaciones {
         }
     }*/
 
-    public static void addBike(Bicicleta bk, Estacion st) throws IllegalStationAssociation, IncorrectStationCapacity {
-        CicloVidaBicicletas.asignarBase(bk, st);
+    public static void addBike(Bicicleta bk, Estacion state) throws IllegalStationAssociation, IncorrectStationCapacity {
+        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+        gestor.asignarBase(bk, state);
     }
 
     public Estacion getEstacion(long id){
         return stations.get(id);
     }
 
-    public static void removeBike(Bicicleta bk, Estacion es) throws IllegalStateChange, IncorrectStationCapacity {
-        CicloVidaBicicletas.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, es);
+    public static void removeBike(Bicicleta bk, Estacion estacion) throws IllegalStateChange, IncorrectStationCapacity {
+        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+        gestor.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, estacion);
     }
 }

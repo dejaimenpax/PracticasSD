@@ -2,19 +2,15 @@ package es.Group3.BiciURJC.controller;
 
 import es.Group3.BiciURJC.Repository.BicicletasRepository;
 import es.Group3.BiciURJC.Repository.EstacionRepository;
-import es.Group3.BiciURJC.Repository.UsuariosRepository;
 import es.Group3.BiciURJC.Service.CicloVidaBicicletas;
-import es.Group3.BiciURJC.Service.GestionEstaciones;
 import es.Group3.BiciURJC.model.Bicicleta;
 import es.Group3.BiciURJC.model.Estacion;
 import es.Group3.BiciURJC.model.EstadoBicicleta;
-import es.Group3.BiciURJC.model.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,7 +23,6 @@ import java.util.Optional;
 public class BicicletasController {
     @Autowired
     private BicicletasRepository bicicletas;
-
     @Autowired
     private EstacionRepository estaciones;
 
@@ -53,15 +48,18 @@ public class BicicletasController {
     public String asignabasebicicleta(Model model, @RequestParam long id_bicicleta, @RequestParam long id_estacion) {
         Bicicleta bicicleta = bicicletas.findById(id_bicicleta).get();
         Estacion estacion = estaciones.findById(id_estacion).get();
-        //CicloVidaBicicletas.asignarBase(bicicleta,estacion);
+        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+        gestor.asignarBase(bicicleta,estacion);
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
     @GetMapping("/modifiedbicicleta")
-    public String modifiedBicicleta(Model model, @RequestParam long id_bicicleta, @RequestParam String state) {
+    public String modifiedBicicleta(Model model, @RequestParam long id_bicicleta, @RequestParam String state){
         Bicicleta bicicleta = bicicletas.findById(id_bicicleta).get();
-        CicloVidaBicicletas.cambiarEstado(bicicleta, EstadoBicicleta.valueOf(state),bicicleta.getEstacion());
-        //log.trace("New post identifier " + bicicleta.getId());
+        Estacion estacion = bicicleta.getEstacion();
+        EstadoBicicleta estado = EstadoBicicleta.valueOf(state);
+        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+        gestor.cambiarEstado(bicicleta,estado,estacion);
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 

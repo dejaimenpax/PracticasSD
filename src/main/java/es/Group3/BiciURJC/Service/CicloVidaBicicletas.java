@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class CicloVidaBicicletas {
 
-    public static void asignarBase(Bicicleta bici, Estacion st) throws IllegalStationAssociation, IncorrectStationCapacity {
+    public void asignarBase(Bicicleta bici, Estacion state) throws IllegalStationAssociation, IncorrectStationCapacity {
         if (bici.getEstado() == EstadoBicicleta.BAJA){
             throw new IllegalStationAssociation("No se puede asignar una base en este estado " + bici.getEstado().toString());
         }
@@ -25,9 +25,10 @@ public class CicloVidaBicicletas {
             throw new IllegalStationAssociation("Esta bici ya tiene una estacion, asociada anteriormente");
         }
         else{//SIN_BASE
-            if(st.getListaBicis().size()<st.getSize()){
-                st.getListaBicis().add(bici);
+            if(state.getListaBicis().size()<state.getSize()){
+                state.getListaBicis().add(bici);
                 bici.setEstado(EstadoBicicleta.EN_BASE);
+                bici.setEstacion(state);
             }
             else{
                 throw new IncorrectStationCapacity("Capacidad de estación al limite");
@@ -35,7 +36,7 @@ public class CicloVidaBicicletas {
         }
     }
 
-    public static void cambiarEstado(Bicicleta bici, EstadoBicicleta state, Estacion st) throws IllegalStateChange, IncorrectStationCapacity {
+    public void cambiarEstado(Bicicleta bici, EstadoBicicleta state, Estacion estacion) throws IllegalStateChange, IncorrectStationCapacity {
         switch (bici.getEstado()) {
             case BAJA:
                 throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
@@ -43,7 +44,7 @@ public class CicloVidaBicicletas {
                 if (state == EstadoBicicleta.BAJA) {
                     bici.setEstado(EstadoBicicleta.BAJA);
                 } else if (state == EstadoBicicleta.EN_BASE) {
-                    GestionEstaciones.addBike(bici, st);
+                    GestionEstaciones.addBike(bici, estacion);
                     bici.setEstado(EstadoBicicleta.EN_BASE);
                 } else {//RESERVADA O SIN BASE
                     throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
@@ -52,18 +53,18 @@ public class CicloVidaBicicletas {
                 throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
             case EN_BASE:
                 if (state == EstadoBicicleta.BAJA) {
-                    if (st.getListaBicis().contains(bici)) {
+                    if (estacion.getListaBicis().contains(bici)) {
                         bici.setEstado(EstadoBicicleta.BAJA);
                     } else {
-                        throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + st.toString());
+                        throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + estacion.toString());
                     }
                 } else if (state == EstadoBicicleta.RESERVADA) {
                     bici.setEstado(EstadoBicicleta.RESERVADA);
                 } else if (state == EstadoBicicleta.SIN_BASE) {
-                    if (st.getListaBicis().contains(bici)) {
+                    if (estacion.getListaBicis().contains(bici)) {
                         bici.setEstado(EstadoBicicleta.SIN_BASE);
                     } else {
-                        throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + st.toString());
+                        throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + estacion.toString());
                     }
                 } else {//RESERVADA
                     throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
