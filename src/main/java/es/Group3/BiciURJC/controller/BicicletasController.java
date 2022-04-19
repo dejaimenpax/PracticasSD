@@ -58,8 +58,8 @@ public class BicicletasController {
     }
 
     @GetMapping("/modifiedbicicleta")
-    public String modifiedBicicleta(@RequestParam long id_bicicleta, @RequestParam String state){
-        Bicicleta bicicleta = bicicletas.findById(id_bicicleta).get();
+    public String modifiedBicicleta(@RequestParam String numserie_bicicleta, @RequestParam String state){
+        Bicicleta bicicleta = bicicletas.findByNum_Serie(numserie_bicicleta);
         Estacion estacion = bicicleta.getEstacion();
         EstadoBicicleta estado = EstadoBicicleta.valueOf(state);
         CicloVidaBicicletas gestor = new CicloVidaBicicletas();

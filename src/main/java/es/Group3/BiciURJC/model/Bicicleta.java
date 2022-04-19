@@ -7,6 +7,8 @@ import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 public class Bicicleta {
@@ -20,7 +22,7 @@ public class Bicicleta {
     private String entryDate;
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
-    private EstadoBicicleta estado;
+    private LinkedList<EstadoBicicleta> estado = new LinkedList<>();
 
     @ManyToOne
     private Estacion estacion;
@@ -32,7 +34,7 @@ public class Bicicleta {
         this.num_serie = num_serie;
         this.modelo = modelo;
         this.entryDate = dtf.format(LocalDate.now());
-        this.estado = estado;
+        this.estado.addFirst(estado);
     }
 
     public Long getId() {
@@ -59,11 +61,11 @@ public class Bicicleta {
         this.entryDate = entryDate;
     }
 
-    public EstadoBicicleta getEstado() {
+    public LinkedList<EstadoBicicleta> getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoBicicleta estado) {
+    public void setEstado(LinkedList<EstadoBicicleta> estado) {
         this.estado = estado;
     }
 
@@ -77,11 +79,13 @@ public class Bicicleta {
 
     @Override
     public String toString() {
-        return "CicloVidaBicicletas{" +
-                "num_serie='" + num_serie + '\'' +
+        return "Bicicleta{" +
+                "id=" + id +
+                ", num_serie='" + num_serie + '\'' +
                 ", modelo='" + modelo + '\'' +
-                ", fecha='" + entryDate + '\'' +
+                ", entryDate='" + entryDate + '\'' +
+                ", estado=" + estado.element() +
+                ", estacion=" + estacion +
                 '}';
     }
-
 }
