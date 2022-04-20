@@ -1,9 +1,7 @@
 package es.Group3.BiciURJC.model;
 
 import es.Group3.BiciURJC.Service.CicloVidaBicicletas;
-import es.Group3.BiciURJC.exceptions.IllegalStateChange;
-import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
-import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
+import es.Group3.BiciURJC.controller.exceptions.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.*;

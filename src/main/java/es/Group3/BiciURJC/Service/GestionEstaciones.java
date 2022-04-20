@@ -1,8 +1,6 @@
 package es.Group3.BiciURJC.Service;
 
-import es.Group3.BiciURJC.exceptions.IllegalStateChange;
-import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
-import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
+import es.Group3.BiciURJC.controller.exceptions.*;
 import es.Group3.BiciURJC.model.Bicicleta;
 import es.Group3.BiciURJC.model.Estacion;
 import es.Group3.BiciURJC.model.EstadoBicicleta;
