@@ -21,13 +21,6 @@ public class GestionEstaciones {
         st.setLon(lon);
     }
 
-    /*public void detailsBikes(Estacion st){
-        Set<String> keysBike = st.getListaBicis().keySet();
-        for(String key : keysBike){
-            st.getListaBicis().get(key).toString();
-        }
-    }*/
-
     public static void addBike(Bicicleta bk, Estacion state) throws IllegalStationAssociation, IncorrectStationCapacity {
         CicloVidaBicicletas gestor = new CicloVidaBicicletas();
         gestor.asignarBase(bk, state);
