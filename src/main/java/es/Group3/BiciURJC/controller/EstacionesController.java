@@ -43,7 +43,6 @@ public class EstacionesController {
         CicloVidaBicicletas gestor = new CicloVidaBicicletas();
         for(Bicicleta bk : bicis){
             gestor.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, st);
-            st.getListaBicis().remove(bk);
             bk.setEstacion(null);
             bicicletas.save(bk);
         }
