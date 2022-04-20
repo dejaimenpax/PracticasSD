@@ -23,6 +23,7 @@ public class EstacionesController {
         model.addAttribute("estacionesList", estacionesList);
         return "estacionesList";
     }
+
     private Logger log = LoggerFactory.getLogger(EstacionesController.class);
     @GetMapping("/addEstacion")
     public String addStation(Model model, @RequestParam String num_serie, @RequestParam int size, @RequestParam int lon, @RequestParam int lat, @RequestParam EstadoEstacion state) {
@@ -44,6 +45,14 @@ public class EstacionesController {
         /*List<Bicicleta> bicis = st.getListaBicis();
         model.addAttribute("detallesBicis", bicis);*/
         return "detallesEstacion";
+    }
+
+    @GetMapping("/estaciones/busqueda")
+    public String view(Model model, @RequestParam String num_serie){
+        Estacion st = estacion.findByNum_Serie(num_serie);
+        System.out.println("He encontrado la estacion con id "+ st.getId());
+        model.addAttribute("busqueda", st);
+        return "busquedaEstacion";
     }
 
 }
