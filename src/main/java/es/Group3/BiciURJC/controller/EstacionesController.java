@@ -42,8 +42,8 @@ public class EstacionesController {
     public String detallesEstacion (Model model, @PathVariable String num_serie){
         Estacion st = estacion.findByNum_Serie(num_serie);
         model.addAttribute("detalles", st);
-        /*List<Bicicleta> bicis = st.getListaBicis();
-        model.addAttribute("detallesBicis", bicis);*/
+        List<Bicicleta> bicis = st.getListaBicis();
+        model.addAttribute("detallesBicis", bicis);
         return "detallesEstacion";
     }
 
