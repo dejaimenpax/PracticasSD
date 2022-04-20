@@ -1,14 +1,8 @@
 package es.Group3.BiciURJC.model;
 
-import es.Group3.BiciURJC.exceptions.IllegalStateChange;
-import es.Group3.BiciURJC.exceptions.IllegalStationAssociation;
-import es.Group3.BiciURJC.exceptions.IncorrectStationCapacity;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 public class Bicicleta {
@@ -22,7 +16,7 @@ public class Bicicleta {
     private String entryDate;
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
-    private LinkedList<EstadoBicicleta> estado = new LinkedList<>();
+    private CapsulaEstado<EstadoBicicleta> estado = new CapsulaEstado<>();
 
     @ManyToOne
     private Estacion estacion;
@@ -34,7 +28,7 @@ public class Bicicleta {
         this.num_serie = num_serie;
         this.modelo = modelo;
         this.entryDate = dtf.format(LocalDate.now());
-        this.estado.addFirst(estado);
+        this.estado.getLista().addFirst(estado);
     }
 
     public Long getId() {
@@ -61,11 +55,11 @@ public class Bicicleta {
         this.entryDate = entryDate;
     }
 
-    public LinkedList<EstadoBicicleta> getEstado() {
+    public CapsulaEstado<EstadoBicicleta> getEstado() {
         return estado;
     }
 
-    public void setEstado(LinkedList<EstadoBicicleta> estado) {
+    public void setEstado(CapsulaEstado<EstadoBicicleta> estado) {
         this.estado = estado;
     }
 
@@ -84,7 +78,7 @@ public class Bicicleta {
                 ", num_serie='" + num_serie + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", entryDate='" + entryDate + '\'' +
-                ", estado=" + estado.element() +
+                ", estado=" + estado.getLista().element() +
                 ", estacion=" + estacion +
                 '}';
     }
