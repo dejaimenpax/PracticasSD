@@ -19,8 +19,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <a class="nav-link link-light" href="/">URJC</a>
             <a class="nav-link link-light" href="/">BICIS URJC</a>
-            <form action="/usuarios/busqueda" class="d-flex">
-                <input class="form-control me-2" type="search" name="fullName" placeholder="Search" aria-label="Search">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-warning mx-1" type="submit">Search</button>
             </form>
         </div>
@@ -31,7 +31,7 @@
 <div>
     <h2>Bicicletas</h2>
     <p>En esta tabla se muestran las bicicletas que registradas en la base de datos</p>
-    <div style="height: 200px;overflow: scroll; overflow-x:hidden">
+    <div class="overflow-scroll">
         <table class="table table-condensed">
             <thead>
             <tr>
@@ -55,13 +55,28 @@
 
 <!---Botones-->
 <div class="botones">
-    <p>Añadir Usuario</p>
+    <form action="/addUsuario">
+        <p>Añadir Usuario(Contraseña,Nombre,ID):</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
+        <input type='password' name='password'/>
+        <input type='text' name='fullName'/>
+        <input type='Long' name='id'/>
+        <input type='submit' value='Enviar'/>
+    </form>
 </div>
 <div class="botones">
-    <p>Eliminar Usuario</p>
+    <p>Eliminar Usuario (Introduzca nombre):</p>
+    <form action="/removeusuario">
+    <input type='text' name='FullName'/>
+    <input type='submit' value='Enviar'/>
 </div>
 <div class="botones">
-    <p>Modificar Usuario</p>
+    <p>Modificar Usuario(Nombre,Estado,Contraseña,ID):</p>
+    <form action="/modifiedUsuario">
+    <input type='text' name='fullName'/>
+    <input type='text' name='state'/>
+    <input type='password' name='password'/>
+    <input type='Long' name='id'/>
+    <input type='submit' value='Enviar'/>
 </div>
 
 <!-- Footer -->
