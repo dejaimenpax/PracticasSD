@@ -29,17 +29,15 @@
 <!---TABLA-->
 
 <div>
-    <h2>Detalles de estacion</h2>
-    <p>En esta tabla se muestran los detalles de la estacion:</p>
+    <h2>Detalles de Bicicleta</h2>
+    <p>En esta tabla se muestran los detalles de un bicicleta:</p>
     <div style="height: 200px;overflow: scroll; overflow-x:hidden">
         <table class="table table-condensed">
             <thead>
             <tr>
                 <th>Num_Serie</th>
+                <th>Modelo</th>
                 <th>Fecha de creacion</th>
-                <th>Capacidad</th>
-                <th>Longitud</th>
-                <th>Latitud</th>
                 <th>Estado</th>
             </tr>
             </thead>
@@ -47,42 +45,14 @@
 
             <tr>
                 <td>{{detalles.num_serie}}</td>
+                <td>{{detalles.modelo}}</td>
                 <td>{{detalles.entryDate}}</td>
-                <td>{{detalles.size}}</td>
-                <td>{{detalles.lon}}</td>
-                <td>{{detalles.lat}}</td>
-                <td>{{detalles.state}}</td>
+                <td>{{detalles.estado}}</td>
             </tr>
             </tbody>
         </table>
-    </div>
-    <<div>
-            <h2>Bicicletas</h2>
-            <p>En esta tabla se muestran las bicicletas pertenecientes a la estacion:</p>
-            <div style="height: 200px;overflow: scroll; overflow-x:hidden">
-                <table class="table table-condensed">
-                    <thead>
-                    <tr>
-                        <th>Num_Serie</th>
-                        <th>Modelo</th>
-                        <th>Fecha</th>
-                        <th>Estado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{#detallesBicis}}
-                    <tr>
-                        <td>{{num_serie}}</td>
-                        <td>{{modelo}}</td>
-                        <td>{{entryDate}}</td>
-                        <td>{{estado}}</td>
-                    </tr>
-                    {{/detallesBicis}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+</div>
+</div>
 <!-- Footer -->
 <div id="footer" class="pt-5">
     <footer class="text-center text-lg-start bg-dark text-muted pt-3">

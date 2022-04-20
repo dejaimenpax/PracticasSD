@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -68,11 +69,18 @@ public class BicicletasController {
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
-    @GetMapping("/removebicicleta")
+    /*@GetMapping("/removebicicleta")
     public String removeBicicleta(Model model, @RequestParam long id) {
         log.trace("Bicicleta identifier " + id);
         bicicletas.deleteById(id);
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
+    }*/
+
+    @GetMapping("/detallesBicicleta/{num_serie}")
+    public String detallesBicicleta (Model model, @PathVariable String num_serie){
+        Bicicleta bicicleta = bicicletas.findByNum_Serie(num_serie);
+        model.addAttribute("detalles", bicicleta);
+        return "detallesBicicleta";
     }
 
 }

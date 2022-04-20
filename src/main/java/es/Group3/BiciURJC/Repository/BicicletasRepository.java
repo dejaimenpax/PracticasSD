@@ -9,5 +9,4 @@ public interface BicicletasRepository extends JpaRepository<Bicicleta,Long> {
             value = "SELECT * FROM BICICLETA WHERE NUM_SERIE = ?1",
             nativeQuery = true)
     Bicicleta findByNum_Serie(String num_serie);
-
 }

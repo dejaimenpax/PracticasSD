@@ -36,19 +36,13 @@
         <thead>
         <tr>
             <th>Num_Serie</th>
-            <th>Modelo</th>
-            <th>Fecha</th>
-            <th>Estado</th>
         </tr>
         </thead>
         <tbody>
 
         {{#bicicletasList}}
         <tr>
-            <td>{{num_serie}}</td>
-            <td>{{modelo}}</td>
-            <td>{{entryDate}}</td>
-            <td>{{estado}}</td>
+            <td><a href="/detallesBicicleta/{{num_serie}}">{{num_serie}}</a></td>
         </tr>
         {{/bicicletasList}}
         </tbody>
@@ -66,13 +60,6 @@
     </form>
 </div>
 <div class="botones">
-    <form action="/removebicicleta">
-        <p>Eliminar bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='number' name='id'/>
-        <input type='submit' value='Enviar'/>
-    </form>
-</div>
-<div class="botones">
     <form action="/asignabasebicicleta">
         <p>Añadir base a bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
         <input type='text' name='numserie_bicicleta'/>
@@ -86,7 +73,6 @@
         <input type='text' name='numserie_bicicleta'/>
         <select name="state">
             <option value="SIN_BASE">Sin base</option>
-            <option value="EN_BASE">En base</option>
             <option value="RESERVADA">Reservada</option>
             <option value="BAJA">Baja</option>
         </select>
