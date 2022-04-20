@@ -77,7 +77,11 @@
     </form>
 </div>
 <div class="botones">
-    <p>Eliminar Estacion:</p>
+    <form action="/removeEstacion">
+        <p>Eliminar estacion:</p>
+        <input type='text' pattern="[A-Za-z0-9]{1,16}" name='num_serie' placeholder='Num_serie'/>
+        <input type='submit' value='Enviar'/>
+    </form>
 </div>
 <div class="botones">
     <p>Modificar Coordenadas</p>//desde la lista de estaciones y hacia nueva pantalla

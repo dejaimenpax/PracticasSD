@@ -45,23 +45,6 @@ public class Estacion {
 		this.size = size;
 	}
 
-	/*public Estacion(String num_serie, int size, int lon, int lat, boolean state) throws IncorrectStationCapacity {
-		super();
-		this.num_serie = num_serie;//y el id se supone que lo asigna el sistema automaticamente
-		this.entryDate = dtf.format(LocalDate.now());
-		if (size!=5 && size!=10){
-			throw new IncorrectStationCapacity("Station capacity should be 5 or 10. Given: " + size);
-		}
-		this.lon = lon;
-		this.lat = lat;
-		if(state){
-			this.state=EstadoEstacion.ACTIVA;
-		}else{
-			this.state=EstadoEstacion.INACTIVA;
-		}
-		this.size = size;
-	}*/
-
 	public String getNum_serie() {
 		return num_serie;
 	}
