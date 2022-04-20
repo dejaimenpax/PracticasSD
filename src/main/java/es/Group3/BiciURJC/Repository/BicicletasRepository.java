@@ -10,9 +10,9 @@ import java.util.List;
 public interface BicicletasRepository extends JpaRepository<Bicicleta,Long> {
 
     @Query(
-            value = "SELECT * FROM BICICLETA WHERE NUM_SERIE = ?1 OR MODELO = ?1",
+            value = "SELECT * FROM BICICLETA WHERE NUM_SERIE = ?1 OR MODELO = ?2",
             nativeQuery = true)
-    List<Bicicleta> findByNum_SerieOrModelo(String num_serie);
+    List<Bicicleta> findByNum_SerieOrModelo(String texto, String texto2);
 
     @Query(
             value = "SELECT * FROM BICICLETA WHERE NUM_SERIE = ?1",

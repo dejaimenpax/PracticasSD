@@ -36,7 +36,7 @@ public class BicicletasController {
 
     @GetMapping("/bicicletas/busqueda")
     public String view(Model model, @RequestParam String texto){
-        List<Bicicleta> bicis = bicicletas.findByNum_SerieOrModelo(texto);
+        List<Bicicleta> bicis = bicicletas.findByNum_SerieOrModelo(texto, texto);
         model.addAttribute("busqueda", bicis);
         return "busquedaBicicleta";
     }
