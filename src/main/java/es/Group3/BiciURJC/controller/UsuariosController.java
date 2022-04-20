@@ -31,28 +31,25 @@ public class UsuariosController {
 
 
     @GetMapping("/addUsuario")
-    public String addUsuario(@RequestParam String password, @RequestParam String fullName, @RequestParam Long id) {
+    public String addUsuario(@RequestParam String fullName, @RequestParam String password) {
         Usuario usuario = new Usuario(password, fullName);
-        GestionUsuarios gestor=new GestionUsuarios();
-        gestor.addUser(usuario);
         usuarios.save(usuario);
         log.trace("New post identifier " + usuario.getId());
         return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
     @GetMapping("/modifiedusuario")
-    public String modifiedUsuario(@RequestParam String fullName, @RequestParam String state,@RequestParam String password, @RequestParam Long id){
+    public String modifiedUsuario(@RequestParam String fullName,@RequestParam String changename, @RequestParam String password){
         Usuario usuario = usuarios.findByFullName(fullName);
         GestionUsuarios gestor= new GestionUsuarios();
-        EstadoUsuario estado = EstadoUsuario.valueOf(state);
-        gestor.editUser(usuario, password, fullName, estado);
+        gestor.editUser(usuario, password, changename);
         usuarios.save(usuario);
         return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
     
 
     @GetMapping("/removeusuario")
-    public String removeUsuario(Model model, @RequestParam String fullName) {
+    public String removeUsuario(@RequestParam String fullName) {
         log.trace("Usuario identificador " + fullName);
         Usuario usuario = usuarios.findByFullName(fullName);
         usuario.setState(EstadoUsuario.INACTIVO);

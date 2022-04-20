@@ -29,8 +29,8 @@
 <!---TABLA-->
 
 <div>
-    <h2>Bicicletas</h2>
-    <p>En esta tabla se muestran las bicicletas que registradas en la base de datos</p>
+    <h2>Usuarios</h2>
+    <p>En esta tabla se muestran los usuarios que registradas en la base de datos</p>
     <div class="overflow-scroll">
         <table class="table table-condensed">
             <thead>
@@ -56,27 +56,27 @@
 <!---Botones-->
 <div class="botones">
     <form action="/addUsuario">
-        <p>Añadir Usuario(Contraseña,Nombre,ID):</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
-        <input type='password' name='password'/>
+        <p>Añadir Usuario(Nombre,Contraseña):</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
         <input type='text' name='fullName'/>
-        <input type='Long' name='id'/>
+        <input type='password' name='password'/>
         <input type='submit' value='Enviar'/>
     </form>
 </div>
 <div class="botones">
     <p>Eliminar Usuario (Introduzca nombre):</p>
     <form action="/removeusuario">
-    <input type='text' name='FullName'/>
+    <input type='text' name='fullName'/>
     <input type='submit' value='Enviar'/>
+    </form>
 </div>
 <div class="botones">
-    <p>Modificar Usuario(Nombre,Estado,Contraseña,ID):</p>
-    <form action="/modifiedUsuario">
+    <p>Modificar Usuario(Nombre, Nombre Nuevo, Contraseña):</p>
+    <form action="/modifiedusuario">
     <input type='text' name='fullName'/>
-    <input type='text' name='state'/>
+    <input type='text' name='changename'/>
     <input type='password' name='password'/>
-    <input type='Long' name='id'/>
     <input type='submit' value='Enviar'/>
+    </form>
 </div>
 
 <!-- Footer -->

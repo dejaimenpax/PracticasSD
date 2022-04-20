@@ -1,9 +1,6 @@
 package es.Group3.BiciURJC.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -14,6 +11,7 @@ public class Usuario{
     private Long id;
 
     private String password;
+    @Column(unique = true)
     private String fullName;
     private String entryDate;
     private EstadoUsuario state;
