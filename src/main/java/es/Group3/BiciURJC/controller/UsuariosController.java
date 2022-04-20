@@ -55,8 +55,8 @@ public class UsuariosController {
     public String removeUsuario(Model model, @RequestParam String fullName) {
         log.trace("Usuario identificador " + fullName);
         Usuario usuario = usuarios.findByFullName(fullName);
-        GestionUsuarios gestor=new GestionUsuarios();
-        gestor.removeUser(usuario);
+        usuario.setState(EstadoUsuario.INACTIVO);
+        usuarios.save(usuario);
         return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
