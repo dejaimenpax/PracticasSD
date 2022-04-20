@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -34,9 +35,9 @@ public class BicicletasController {
     }
 
     @GetMapping("/bicicletas/busqueda")
-    public String view(Model model, @RequestParam String num_serie){
-        Bicicleta bici = bicicletas.findByNum_Serie(num_serie);
-        model.addAttribute("busqueda", bici);
+    public String view(Model model, @RequestParam String texto){
+        List<Bicicleta> bicis = bicicletas.findByNum_SerieOrModelo(texto);
+        model.addAttribute("busqueda", bicis);
         return "busquedaBicicleta";
     }
 
