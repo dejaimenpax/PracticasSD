@@ -15,7 +15,7 @@ public class Bicicleta {
     private String modelo;
     private String entryDate;
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-
+    @Column(length = 1024)
     private CapsulaEstado<EstadoBicicleta> estado = new CapsulaEstado<>();
 
     @ManyToOne

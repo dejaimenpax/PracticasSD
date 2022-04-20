@@ -26,7 +26,7 @@ public class Estacion {
 	private EstadoEstacion state;
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
-	@OneToMany(mappedBy = "estacion", orphanRemoval = true)
+	@OneToMany(mappedBy = "estacion", orphanRemoval = false)
 	private List<Bicicleta> listaBicis = new ArrayList<>();
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	
