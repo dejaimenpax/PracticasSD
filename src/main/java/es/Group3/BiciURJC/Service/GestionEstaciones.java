@@ -16,10 +16,10 @@ public class GestionEstaciones {
         return st.toString();
     }
 
-    public void modCoord(Estacion st, long lon, long lat){
+    /*public void modCoord(Estacion st, long lon, long lat){
         st.setLat(lat);
         st.setLon(lon);
-    }
+    }*/
 
     public static void addBike(Bicicleta bk, Estacion state) throws IllegalStationAssociation, IncorrectStationCapacity {
         CicloVidaBicicletas gestor = new CicloVidaBicicletas();

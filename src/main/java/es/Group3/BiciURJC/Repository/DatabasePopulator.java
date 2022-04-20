@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
+import static es.Group3.BiciURJC.model.Coords.coord;
 import static es.Group3.BiciURJC.model.EstadoBicicleta.SIN_BASE;
 
 @Component
 @Profile("local")
 public class DatabasePopulator {
-
     @Autowired
     private BicicletasRepository blogbicicletasrepository;
 
@@ -32,7 +32,7 @@ public class DatabasePopulator {
         ));
 
         blogestacionrepository.saveAll(Arrays.asList(
-                new Estacion("Hola",5,2,2, EstadoEstacion.ACTIVA)
+                new Estacion("Hola",5, coord, coord, EstadoEstacion.ACTIVA)
         ));
 
         blogusuariosrepository.saveAll(Arrays.asList(

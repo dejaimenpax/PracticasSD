@@ -2,10 +2,7 @@ package es.Group3.BiciURJC.controller;
 
 import es.Group3.BiciURJC.Repository.EstacionRepository;
 import es.Group3.BiciURJC.Service.CicloVidaBicicletas;
-import es.Group3.BiciURJC.model.Bicicleta;
-import es.Group3.BiciURJC.model.Estacion;
-import es.Group3.BiciURJC.model.EstadoBicicleta;
-import es.Group3.BiciURJC.model.EstadoEstacion;
+import es.Group3.BiciURJC.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,10 @@ public class EstacionesController {
 
     private Logger log = LoggerFactory.getLogger(EstacionesController.class);
     @GetMapping("/addEstacion")
-    public String addStation(Model model, @RequestParam String num_serie, @RequestParam int size, @RequestParam int lon, @RequestParam int lat, @RequestParam EstadoEstacion state) {
+    public String addStation(Model model, @RequestParam String num_serie, @RequestParam int size, @RequestParam int glon, @RequestParam int mlon, @RequestParam int slon,
+                             @RequestParam int glat, @RequestParam int mlat, @RequestParam int slat, @RequestParam EstadoEstacion state) {
+        Coords lon = new Coords(glon, mlon, slon);
+        Coords lat = new Coords(glat, mlat, slat);
         Estacion st = new Estacion(num_serie, size, lon, lat, state);
         estacion.save(st);
         return "redirect:/estaciones";//para que se añada a la lista, llamar al primer metodo de la clase controller
