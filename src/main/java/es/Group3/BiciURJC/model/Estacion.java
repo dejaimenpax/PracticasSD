@@ -1,15 +1,11 @@
 package es.Group3.BiciURJC.model;
 
-import es.Group3.BiciURJC.Service.CicloVidaBicicletas;
 import es.Group3.BiciURJC.controller.exceptions.*;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 @Entity
@@ -21,8 +17,8 @@ public class Estacion {
 	private String num_serie;
 	private String entryDate;
 	private int size;
-	private double lon; //coordenada longitud
-	private double lat; //coordenada latitud
+	private Coords lon; //coordenada longitud
+	private Coords lat; //coordenada latitud
 	private EstadoEstacion state;
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
@@ -32,7 +28,7 @@ public class Estacion {
 	
 	protected Estacion() {}
 	
-	public Estacion(String num_serie, int size, int lon, int lat, EstadoEstacion state) throws IncorrectStationCapacity {
+	public Estacion(String num_serie, int size, Coords lon, Coords lat, EstadoEstacion state) throws IncorrectStationCapacity {
 		super();
 		this.num_serie = num_serie;//y el id se supone que lo asigna el sistema automaticamente
 		this.entryDate = dtf.format(LocalDate.now());
@@ -77,19 +73,19 @@ public class Estacion {
 		this.size = size;
 	}
 
-	public double getLon() {
+	public Coords getLon() {
 		return lon;
 	}
 	
-	public void setLon(double lon) {
+	public void setLon(Coords lon) {
 		this.lon = lon;
 	}
 	
-	public double getLat() {
+	public Coords getLat() {
 		return lat;
 	}
 	
-	public void setLat(double lat) {
+	public void setLat(Coords lat) {
 		this.lat = lat;
 	}
 
