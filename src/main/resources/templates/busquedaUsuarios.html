@@ -20,7 +20,7 @@
             <a class="nav-link link-light" href="/">URJC</a>
             <a class="nav-link link-light" href="/">BICIS URJC</a>
             <form action="/usuarios/busqueda" class="d-flex">
-                <input class="form-control me-2" type="search" name="fullName" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" name="full_name" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-warning mx-1" type="submit">Search</button>
             </form>
         </div>
@@ -41,11 +41,13 @@
             </tr>
             </thead>
             <tbody>
+            {{#busqueda}}
             <tr>
-                <td>{{busqueda.fullName}}</td>
-                <td>{{busqueda.entryDate}}</td>
-                <td>{{busqueda.state}}</td>
+                <td>{{fullName}}</td>
+                <td>{{entryDate}}</td>
+                <td>{{state}}</td>
             </tr>
+            {{/busqueda}}
             </tbody>
         </table>
     </div>

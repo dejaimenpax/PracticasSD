@@ -57,5 +57,12 @@ public class UsuariosController {
         return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
+    @GetMapping("/usuarios/busqueda")
+    public String view(Model model, @RequestParam String full_name){
+        List<Usuario> usrs = usuarios.findByFull_NameList(full_name);
+        model.addAttribute("busqueda", usrs);
+        return "busquedaUsuario";
+    }
+
 
 }

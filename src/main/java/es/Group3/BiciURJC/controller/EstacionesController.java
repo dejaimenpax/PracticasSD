@@ -59,11 +59,11 @@ public class EstacionesController {
         return "detallesEstacion";
     }
 
+
     @GetMapping("/estaciones/busqueda")
     public String view(Model model, @RequestParam String num_serie){
-        Estacion st = estacion.findByNum_Serie(num_serie);
-        System.out.println("He encontrado la estacion con id "+ st.getId());
-        model.addAttribute("busqueda", st);
+        List<Estacion> sts = estacion.findByNum_SerieList(num_serie);
+        model.addAttribute("busqueda", sts);
         return "busquedaEstacion";
     }
 

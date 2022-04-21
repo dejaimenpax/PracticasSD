@@ -46,14 +46,16 @@
             </thead>
 
             <tbody>
+            {{#busqueda}}
             <tr>
-                <td>{{busqueda.num_serie}}</td>
-                <td>{{busqueda.entryDate}}</td>
-                <td>{{busqueda.size}}</td>
-                <td>{{busqueda.lon}}</td>
-                <td>{{busqueda.lat}}</td>
-                <td>{{busqueda.state}}</td>
+                <td>{{num_serie}}</td>
+                <td>{{entryDate}}</td>
+                <td>{{size}}</td>
+                <td>{{lon}}</td>
+                <td>{{lat}}</td>
+                <td>{{state}}</td>
             </tr>
+            {{/busqueda}}
             </tbody>
         </table>
     </div>

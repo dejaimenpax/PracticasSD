@@ -12,4 +12,9 @@ public interface EstacionRepository extends JpaRepository<Estacion,Long> {
             value = "SELECT * FROM ESTACION WHERE NUM_SERIE = ?1",
             nativeQuery = true)
     Estacion findByNum_Serie(String num_serie);
+
+    @Query(
+            value = "SELECT * FROM ESTACION WHERE NUM_SERIE = ?1",
+            nativeQuery = true)
+    List<Estacion> findByNum_SerieList(String num_serie);
 }
