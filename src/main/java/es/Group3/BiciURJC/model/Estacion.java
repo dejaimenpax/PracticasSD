@@ -19,7 +19,7 @@ public class Estacion {
 	private int size;
 	private Coords lon; //coordenada longitud
 	private Coords lat; //coordenada latitud
-	private EstadoEstacion state;
+	private EstadoEstacion estado;
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
 	@OneToMany(mappedBy = "estacion", orphanRemoval = false)
@@ -28,7 +28,7 @@ public class Estacion {
 	
 	protected Estacion() {}
 	
-	public Estacion(String num_serie, int size, Coords lon, Coords lat, EstadoEstacion state) throws IncorrectStationCapacity {
+	public Estacion(String num_serie, int size, Coords lon, Coords lat, EstadoEstacion estado) throws IncorrectStationCapacity {
 		super();
 		this.num_serie = num_serie;//y el id se supone que lo asigna el sistema automaticamente
 		this.entryDate = dtf.format(LocalDate.now());
@@ -37,7 +37,7 @@ public class Estacion {
 		}
 		this.lon = lon;
 		this.lat = lat;
-		this.state = state;
+		this.estado = estado;
 		this.size = size;
 	}
 
@@ -57,12 +57,12 @@ public class Estacion {
 		this.entryDate = entryDate;
 	}
 
-	public EstadoEstacion isState() {
-		return state;
+	public EstadoEstacion getEstado() {
+		return this.estado;
 	}
 
-	public void setState(EstadoEstacion state) {
-		this.state = state;
+	public void setEstado(EstadoEstacion estado) {
+		this.estado = estado;
 	}
 
 	public int getSize() {
@@ -98,7 +98,7 @@ public class Estacion {
 	    public String toString(){
 	        return("Estación " + num_serie + ", id: "+ id + ", fecha: " + entryDate +
 	        		", capacidad: " + size + ", longitud: " + lon + ", latitud" + lat +
-	        		", estado: " + state);
+	        		", estado: " + estado);
 	    }
 
 }

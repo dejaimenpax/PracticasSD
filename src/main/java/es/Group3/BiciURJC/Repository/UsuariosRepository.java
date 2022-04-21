@@ -11,9 +11,4 @@ public interface UsuariosRepository extends JpaRepository<Usuario,Long> {
             value = "SELECT * FROM USUARIO WHERE FULL_NAME = ?1",
             nativeQuery = true)
     Usuario findByFullName(String fullName);
-
-    @Query(
-            value = "SELECT * FROM USUARIO WHERE FULL_NAME = ?1",
-            nativeQuery = true)
-    List<Usuario> findByFull_NameList(String full_name);
 }

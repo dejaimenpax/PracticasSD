@@ -16,55 +16,55 @@ import java.util.List;
 @Controller
 public class EstacionesController {
     @Autowired
-    private EstacionRepository estacion;
+    private EstacionRepository estaciones;
     @Autowired
     private BicicletasRepository bicicletas;
+
+    private Logger log = LoggerFactory.getLogger(EstacionesController.class);
+
     @GetMapping("/estaciones")
     public String liststation(Model model) {
-        List<Estacion> estacionesList = estacion.findAll();
+        List<Estacion> estacionesList = estaciones.findAll();
         model.addAttribute("estacionesList", estacionesList);
         return "estacionesList";
     }
 
-    private Logger log = LoggerFactory.getLogger(EstacionesController.class);
-    @GetMapping("/addEstacion")
-    public String addStation(Model model, @RequestParam String num_serie, @RequestParam int size, @RequestParam int glon, @RequestParam int mlon, @RequestParam int slon,
-                             @RequestParam int glat, @RequestParam int mlat, @RequestParam int slat, @RequestParam EstadoEstacion state) {
-        Coords lon = new Coords(glon, mlon, slon);
-        Coords lat = new Coords(glat, mlat, slat);
-        Estacion st = new Estacion(num_serie, size, lon, lat, state);
-        estacion.save(st);
-        return "redirect:/estaciones";//para que se añada a la lista, llamar al primer metodo de la clase controller
-    }
-    @GetMapping("/removeEstacion")
-    public String removeStation(Model model, @RequestParam String num_serie) {
-        Estacion st = estacion.findByNum_Serie(num_serie);
-        List<Bicicleta> bicis = st.getListaBicis();
-        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
-        for(Bicicleta bk : bicis){
-            gestor.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, st);
-            bk.setEstacion(null);
-            bicicletas.save(bk);
-        }
-        st.setState(EstadoEstacion.INACTIVA);
-        estacion.save(st);
-        return "redirect:/estaciones";
-    }
-    @GetMapping("/detallesEstacion/{num_serie}")
-    public String detallesEstacion (Model model, @PathVariable String num_serie){
-        Estacion st = estacion.findByNum_Serie(num_serie);
-        model.addAttribute("detalles", st);
-        List<Bicicleta> bicis = st.getListaBicis();
-        model.addAttribute("detallesBicis", bicis);
-        return "detallesEstacion";
-    }
-
-
     @GetMapping("/estaciones/busqueda")
     public String view(Model model, @RequestParam String num_serie){
-        List<Estacion> sts = estacion.findByNum_SerieList(num_serie);
+        List<Estacion> sts = estaciones.findByNum_SerieList(num_serie);
         model.addAttribute("busqueda", sts);
         return "busquedaEstacion";
     }
 
+    @GetMapping("/añadirEstacion")
+    public String addStation(Model model, @RequestParam String num_serie, @RequestParam int size, @RequestParam int glon, @RequestParam int mlon, @RequestParam int slon,
+                             @RequestParam int glat, @RequestParam int mlat, @RequestParam int slat, @RequestParam EstadoEstacion estado) {
+        Coords lon = new Coords(glon, mlon, slon);
+        Coords lat = new Coords(glat, mlat, slat);
+        Estacion estacion = new Estacion(num_serie, size, lon, lat, estado);
+        estaciones.save(estacion);
+        return "redirect:/estaciones";//para que se añada a la lista, llamar al primer metodo de la clase controller
+    }
+    @GetMapping("/eliminarEstacion")
+    public String removeStation(Model model, @RequestParam String num_serie) {
+        Estacion estacion = estaciones.findByNum_Serie(num_serie);
+        List<Bicicleta> bicis = estacion.getListaBicis();
+        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+        for(Bicicleta bk : bicis){
+            gestor.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, estacion);
+            bk.setEstacion(null);
+            bicicletas.save(bk);
+        }
+        estacion.setEstado(EstadoEstacion.INACTIVA);
+        estaciones.save(estacion);
+        return "redirect:/estaciones";
+    }
+    @GetMapping("/detallesEstacion/{num_serie}")
+    public String detallesEstacion (Model model, @PathVariable String num_serie){
+        Estacion estacion = estaciones.findByNum_Serie(num_serie);
+        model.addAttribute("detalles", estacion);
+        List<Bicicleta> bicis = estacion.getListaBicis();
+        model.addAttribute("detallesBicis", bicis);
+        return "detallesEstacion";
+    }
 }

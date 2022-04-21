@@ -20,7 +20,7 @@
             <a class="nav-link link-light" href="/">URJC</a>
             <a class="nav-link link-light" href="/">BICIS URJC</a>
             <form action="/usuarios/busqueda" class="d-flex">
-                <input class="form-control me-2" type="search" name="full_name" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" name="full_name" placeholder="Búsqueda" aria-label="Search">
                 <button class="btn btn-outline-warning mx-1" type="submit">Search</button>
             </form>
         </div>
@@ -29,8 +29,8 @@
 <!---TABLA-->
 
 <div>
-    <h2>Bicicletas</h2>
-    <p>En esta tabla se muestran las bicicletas que registradas en la base de datos</p>
+    <h2>Búsqueda de usuarios</h2>
+    <p>En esta tabla se muestran los resultados de su búsqueda:</p>
     <div style="height: 200px;overflow: scroll; overflow-x:hidden">
         <table class="table table-condensed">
             <thead>
@@ -45,7 +45,7 @@
             <tr>
                 <td>{{fullName}}</td>
                 <td>{{entryDate}}</td>
-                <td>{{state}}</td>
+                <td>{{estado}}</td>
             </tr>
             {{/busqueda}}
             </tbody>

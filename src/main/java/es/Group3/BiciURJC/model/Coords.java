@@ -1,10 +1,11 @@
 package es.Group3.BiciURJC.model;
 
-public class Coords {
+import java.io.Serializable;
+
+public class Coords implements Serializable {
     private int grados;
     private int mins;
     private int secs;
-    public static final Coords coord = new Coords(1,2,3);
 
     public Coords(int grados, int mins, int secs){
         this.grados = grados;

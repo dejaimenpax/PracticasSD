@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
-import static es.Group3.BiciURJC.model.Coords.coord;
+
 import static es.Group3.BiciURJC.model.EstadoBicicleta.SIN_BASE;
 
 @Component
@@ -32,7 +32,7 @@ public class DatabasePopulator {
         ));
 
         blogestacionrepository.saveAll(Arrays.asList(
-                new Estacion("Hola",5, coord, coord, EstadoEstacion.ACTIVA)
+                new Estacion("Hola",5, new Coords(21,32,43), new Coords(78,23,98), EstadoEstacion.ACTIVA)
         ));
 
         blogusuariosrepository.saveAll(Arrays.asList(

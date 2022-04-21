@@ -41,7 +41,7 @@ public class BicicletasController {
         return "busquedaBicicleta";
     }
 
-    @GetMapping("/addbicicleta")
+    @GetMapping("/añadirbicicleta")
     public String addBicicleta(@RequestParam String num_serie, @RequestParam String modelo) {
         Bicicleta bicicleta = new Bicicleta(num_serie,modelo, EstadoBicicleta.SIN_BASE);
         bicicletas.save(bicicleta);
@@ -59,7 +59,7 @@ public class BicicletasController {
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
 
-    @GetMapping("/modifiedbicicleta")
+    @GetMapping("/modificarbicicleta")
     public String modifiedBicicleta(@RequestParam String numserie_bicicleta, @RequestParam String state){
         Bicicleta bicicleta = bicicletas.findByNum_Serie(numserie_bicicleta);
         Estacion estacion = bicicleta.getEstacion();
@@ -69,13 +69,6 @@ public class BicicletasController {
         bicicletas.save(bicicleta);
         return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
     }
-
-    /*@GetMapping("/removebicicleta")
-    public String removeBicicleta(Model model, @RequestParam long id) {
-        log.trace("Bicicleta identifier " + id);
-        bicicletas.deleteById(id);
-        return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
-    }*/
 
     @GetMapping("/detallesBicicleta/{num_serie}")
     public String detallesBicicleta (Model model, @PathVariable String num_serie){

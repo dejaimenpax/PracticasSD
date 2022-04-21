@@ -9,7 +9,7 @@ import java.util.Hashtable;
 public class GestionUsuarios {
 
     public static void removeUser(Usuario us){
-        us.setState(EstadoUsuario.INACTIVO);
+        us.setEstado(EstadoUsuario.INACTIVO);
     }
 
     public static void editUser(Usuario us, String password, String fullName){

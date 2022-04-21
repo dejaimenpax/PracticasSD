@@ -14,8 +14,7 @@ public class Usuario{
     @Column(unique = true)
     private String fullName;
     private String entryDate;
-    private EstadoUsuario state;
-    //private BufferedImage BufferedImage photo;
+    private EstadoUsuario estado;
 
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
@@ -43,12 +42,12 @@ public class Usuario{
         return entryDate;
     }
 
-    public EstadoUsuario getState() {
-        return state;
+    public EstadoUsuario getEstado() {
+        return this.estado;
     }
 
-    public void setState(EstadoUsuario state) {
-        this.state = state;
+    public void setEstado(EstadoUsuario estado) {
+        this.estado = estado;
     }
 
     protected Usuario() {}
@@ -58,7 +57,7 @@ public class Usuario{
         this.password = password;
         this.fullName = fullName;
         this.entryDate = dtf.format(LocalDate.now());
-        this.state = EstadoUsuario.ACTIVO;
+        this.estado = EstadoUsuario.ACTIVO;
     }
 
     @Override
