@@ -50,6 +50,33 @@
     </table>
   </div>
 </div>
+
+<!---Botones-->
+<div class="botones">
+  <form action="/añadirUsuario">
+    <p>Añadir Usuario</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
+    <input type='text' name='fullName' placeholder="Nombre"/>
+    <input type='password' name='password' placeholder="Contraseña"/>
+    <input type='submit' value='Enviar'/>
+  </form>
+</div>
+<div class="botones">
+  <p>Eliminar Usuario</p>
+  <form action="/eliminarusuario">
+    <input type='text' name='fullName' placeholder="Nombre"/>
+    <input type='submit' value='Enviar'/>
+  </form>
+</div>
+<div class="botones">
+  <p>Modificar Usuario</p>
+  <form action="/modificarusuario">
+    <input type='text' name='fullName' placeholder="Nombre Actual"/>
+    <input type='text' name='changename' placeholder="Nombre a Cambiar"/>
+    <input type='password' name='password' placeholder="Contraseña"/>
+    <input type='submit' value='Enviar'/>
+  </form>
+</div>
+
 <!-- Footer -->
 <div id="footer" class="pt-5">
   <footer class="text-center text-lg-start bg-dark text-muted pt-3">

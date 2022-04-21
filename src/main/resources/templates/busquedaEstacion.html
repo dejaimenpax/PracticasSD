@@ -61,6 +61,36 @@
     </div>
 </div>
 
+<!---Botones-->
+<div class="botones">
+    <form action="/añadirEstacion">
+        <p>Añadir estacion:</p>
+        <input type='text' pattern="[A-Za-z0-9]{1,16}" name='num_serie' placeholder="Numero de serie"/>
+        <input type='number' name='size' placeholder="Capacidad"/>
+        <input type='number' name='glon' placeholder="Grados Longitud"/>
+        <input type='number' name='mlon' placeholder="Minutos Longitud"/>
+        <input type='number' name='slon' placeholder="Segundos Longitud"/>
+        <input type='number' name='glat' placeholder="Grados Latitud"/>
+        <input type='number' name='mlat' placeholder="Minutos Latitud"/>
+        <input type='number' name='slat' placeholder="Segundos Latitud"/>
+        <select name="estado" placeholder="Estado">
+            <option value="ACTIVA">ACTIVA</option>
+            <option value="INACTIVA">INACTIVA</option>
+        </select>
+        <input type='submit' value='Enviar'/>
+    </form>
+</div>
+<div class="botones">
+    <form action="/eliminarEstacion">
+        <p>Eliminar estacion:</p>
+        <input type='text' pattern="[A-Za-z0-9]{1,16}" name='num_serie' placeholder='Numero de serie'/>
+        <input type='submit' value='Enviar'/>
+    </form>
+</div>
+<div class="botones">
+    <p>Modificar Coordenadas</p>//desde la lista de estaciones y hacia nueva pantalla
+</div>
+
 <!-- Footer -->
 <div id="footer" class="pt-5">
     <footer class="text-center text-lg-start bg-dark text-muted pt-3">

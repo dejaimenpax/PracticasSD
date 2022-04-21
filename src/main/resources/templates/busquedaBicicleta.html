@@ -55,6 +55,36 @@
     </div>
 </div>
 
+<!---Botones-->
+<div class="botones">
+    <form action="/añadirbicicleta">
+        <p>Añadir bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
+        <input type='text' pattern="[A-Za-z0-9]{1,16}" name='num_serie' placeholder="Numero de serie"/>
+        <input type='text' name='modelo' placeholder="Modelo"/>
+        <input type='submit' value='Enviar'/>
+    </form>
+</div>
+<div class="botones">
+    <form action="/asignabasebicicleta">
+        <p>Añadir base a bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
+        <input type='text' name='numserie_bicicleta' placeholder="Numero de serie Bicicleta"/>
+        <input type='text' name='numserie_estacion' placeholder="Numero de serie Estacion"/>
+        <input type='submit' value='Enviar'/>
+    </form>
+</div>
+<div class="botones">
+    <form action="/modificarbicicleta">
+        <p>Modificar bicicleta:</p><!--La idea es que al pulsar el boton, se abra el fomrulario-->
+        <input type='text' name='numserie_bicicleta' placeholder="Numero de serie Bicicleta"/>
+        <select name="state" placeholder="Estado">
+            <option value="SIN_BASE">Sin base</option>
+            <option value="RESERVADA">Reservada</option>
+            <option value="BAJA">Baja</option>
+        </select>
+        <input type='submit' value='Enviar'/>
+    </form>
+</div>
+
 <!-- Footer -->
 <div id="footer" class="pt-5">
     <footer class="text-center text-lg-start bg-dark text-muted pt-3">
