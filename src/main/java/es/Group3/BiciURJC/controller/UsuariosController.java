@@ -57,10 +57,15 @@ public class UsuariosController {
     @GetMapping("/modificarusuario")
     public String modifiedUsuario(@RequestParam String fullName,@RequestParam String changename, @RequestParam String password){
         Usuario usuario = usuarios.findByFullName(fullName);
-        GestionUsuarios gestor= new GestionUsuarios();
-        gestor.editUser(usuario, password, changename);
-        usuarios.save(usuario);
-        return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        if (usuario==null){
+            return "redirect:/errorFormulario";
+        }
+        else{
+            GestionUsuarios gestor= new GestionUsuarios();
+            gestor.editUser(usuario, password, changename);
+            usuarios.save(usuario);
+            return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        }
     }
     
 
@@ -68,9 +73,14 @@ public class UsuariosController {
     public String removeUsuario(@RequestParam String fullName) {
         log.trace("Usuario identificador " + fullName);
         Usuario usuario = usuarios.findByFullName(fullName);
-        usuario.setEstado(EstadoUsuario.INACTIVO);
-        usuarios.save(usuario);
-        return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        if (usuario==null){
+            return "redirect:/errorFormulario";
+        }
+        else{
+            usuario.setEstado(EstadoUsuario.INACTIVO);
+            usuarios.save(usuario);
+            return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        }
     }
 
     @GetMapping("/detallesUsuario/{fullName}")
