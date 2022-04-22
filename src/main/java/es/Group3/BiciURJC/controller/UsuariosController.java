@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UsuariosController {
@@ -41,10 +42,16 @@ public class UsuariosController {
 
     @GetMapping("/añadirUsuario")
     public String addUsuario(@RequestParam String fullName, @RequestParam String password) {
-        Usuario usuario = new Usuario(password, fullName);
-        usuarios.save(usuario);
-        log.trace("New post identifier " + usuario.getId());
-        return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        Usuario aux = usuarios.findByFullName(fullName);
+        if (aux!=null){
+            return "redirect:/errorFormulario";
+        }
+        else{
+            Usuario usuario = new Usuario(password, fullName);
+            usuarios.save(usuario);
+            log.trace("New post identifier " + usuario.getId());
+            return "redirect:/usuarios";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        }
     }
 
     @GetMapping("/modificarusuario")
