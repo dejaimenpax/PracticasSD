@@ -48,16 +48,21 @@ public class EstacionesController {
     @GetMapping("/eliminarEstacion")
     public String removeStation(Model model, @RequestParam String num_serie) {
         Estacion estacion = estaciones.findByNum_Serie(num_serie);
-        List<Bicicleta> bicis = estacion.getListaBicis();
-        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
-        for(Bicicleta bk : bicis){
-            gestor.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, estacion);
-            bk.setEstacion(null);
-            bicicletas.save(bk);
+        if (estacion==null){
+            return "redirect:/errorFormulario";
         }
-        estacion.setEstado(EstadoEstacion.INACTIVA);
-        estaciones.save(estacion);
-        return "redirect:/estaciones";
+        else{
+            List<Bicicleta> bicis = estacion.getListaBicis();
+            CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+            for(Bicicleta bk : bicis){
+                gestor.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, estacion);
+                bk.setEstacion(null);
+                bicicletas.save(bk);
+            }
+            estacion.setEstado(EstadoEstacion.INACTIVA);
+            estaciones.save(estacion);
+            return "redirect:/estaciones";
+        }
     }
     @GetMapping("/detallesEstacion/{num_serie}")
     public String detallesEstacion (Model model, @PathVariable String num_serie){

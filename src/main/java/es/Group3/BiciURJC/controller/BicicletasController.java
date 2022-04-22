@@ -52,22 +52,32 @@ public class BicicletasController {
     @GetMapping("/asignabasebicicleta")
     public String asignabasebicicleta(@RequestParam String numserie_bicicleta, @RequestParam String numserie_estacion) {
         Bicicleta bicicleta = bicicletas.findByNum_Serie(numserie_bicicleta);
-        Estacion estacion = estaciones.findByNum_Serie(numserie_estacion);
-        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
-        gestor.asignarBase(bicicleta,estacion);
-        bicicletas.save(bicicleta);
-        return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        if (bicicleta==null){
+            return "redirect:/errorFormulario";
+        }
+        else{
+            Estacion estacion = estaciones.findByNum_Serie(numserie_estacion);
+            CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+            gestor.asignarBase(bicicleta,estacion);
+            bicicletas.save(bicicleta);
+            return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        }
     }
 
     @GetMapping("/modificarbicicleta")
     public String modifiedBicicleta(@RequestParam String numserie_bicicleta, @RequestParam String state){
         Bicicleta bicicleta = bicicletas.findByNum_Serie(numserie_bicicleta);
-        Estacion estacion = bicicleta.getEstacion();
-        EstadoBicicleta estado = EstadoBicicleta.valueOf(state);
-        CicloVidaBicicletas gestor = new CicloVidaBicicletas();
-        gestor.cambiarEstado(bicicleta,estado,estacion);
-        bicicletas.save(bicicleta);
-        return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        if (bicicleta==null){
+            return "redirect:/errorFormulario";
+        }
+        else{
+            Estacion estacion = bicicleta.getEstacion();
+            EstadoBicicleta estado = EstadoBicicleta.valueOf(state);
+            CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+            gestor.cambiarEstado(bicicleta,estado,estacion);
+            bicicletas.save(bicicleta);
+            return "redirect:/bicicletas";//para que se añada a la lista, llamar al primer metodo de la clase controller
+        }
     }
 
     @GetMapping("/detallesBicicleta/{num_serie}")
