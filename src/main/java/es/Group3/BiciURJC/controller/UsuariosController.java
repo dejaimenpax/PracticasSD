@@ -3,8 +3,6 @@ package es.Group3.BiciURJC.controller;
 
 import es.Group3.BiciURJC.Repository.UsuariosRepository;
 import es.Group3.BiciURJC.Service.GestionUsuarios;
-import es.Group3.BiciURJC.model.Bicicleta;
-import es.Group3.BiciURJC.model.Estacion;
 import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;
 import org.slf4j.Logger;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UsuariosController {

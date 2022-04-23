@@ -36,7 +36,8 @@ public class CicloVidaBicicletas {
                 if (state == EstadoBicicleta.BAJA) {
                     bici.getEstado().getLista().addFirst(EstadoBicicleta.BAJA);
                 } else if (state == EstadoBicicleta.EN_BASE) {
-                    GestionEstaciones.addBike(bici, estacion);
+                    GestionEstaciones gestor = new GestionEstaciones();
+                    gestor.addBike(bici, estacion);
                     bici.getEstado().getLista().addFirst(EstadoBicicleta.EN_BASE);
                 } else {//RESERVADA O SIN BASE
                     throw new IllegalStateChange("No se puede pasar de " + bici.getEstado().toString() + " a " + state.toString());
@@ -56,6 +57,7 @@ public class CicloVidaBicicletas {
                 } else if (state == EstadoBicicleta.SIN_BASE) {
                     if (estacion.getListaBicis().contains(bici)) {
                         bici.getEstado().getLista().addFirst(EstadoBicicleta.SIN_BASE);
+                        bici.setEstacion(null);
                     } else {
                         throw new IllegalStationAssociation("Esta bici " + bici.toString() + " no pertenece a esta estacion " + estacion.toString());
                     }

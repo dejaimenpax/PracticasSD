@@ -31,6 +31,15 @@ public class Bicicleta {
         this.estado.getLista().addFirst(estado);
     }
 
+    public Bicicleta(String num_serie, String modelo, EstadoBicicleta estado, Estacion estacion){
+        super();
+        this.num_serie = num_serie;
+        this.modelo = modelo;
+        this.entryDate = dtf.format(LocalDate.now());
+        this.estado.getLista().addFirst(estado);
+        this.estacion = estacion;
+    }
+
     public Long getId() {
         return id;
     }

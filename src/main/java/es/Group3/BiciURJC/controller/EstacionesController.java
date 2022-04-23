@@ -1,7 +1,7 @@
 package es.Group3.BiciURJC.controller;
 
 import es.Group3.BiciURJC.Repository.EstacionRepository;
-import es.Group3.BiciURJC.Service.CicloVidaBicicletas;
+import es.Group3.BiciURJC.Service.GestionEstaciones;
 import es.Group3.BiciURJC.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,10 +53,9 @@ public class EstacionesController {
         }
         else{
             List<Bicicleta> bicis = estacion.getListaBicis();
-            CicloVidaBicicletas gestor = new CicloVidaBicicletas();
+            GestionEstaciones gestor = new GestionEstaciones();
             for(Bicicleta bk : bicis){
-                gestor.cambiarEstado(bk, EstadoBicicleta.SIN_BASE, estacion);
-                bk.setEstacion(null);
+                gestor.removeBike(bk, estacion);
                 bicicletas.save(bk);
             }
             estacion.setEstado(EstadoEstacion.INACTIVA);
