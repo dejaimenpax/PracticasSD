@@ -111,7 +111,17 @@
     </form>
 </div>
 <div class="botones">
-    <p>Modificar Coordenadas</p>
+    <form action="/modCoords">
+        <p>Modificar Coordenadas:</p>
+        <input type='text' pattern="[A-Za-z0-9]{1,16}" name='num_serie' placeholder="Numero de serie"/>
+        <input type='number' name='glon' placeholder="Grados Longitud"/>
+        <input type='number' name='mlon' placeholder="Minutos Longitud"/>
+        <input type='number' name='slon' placeholder="Segundos Longitud"/>
+        <input type='number' name='glat' placeholder="Grados Latitud"/>
+        <input type='number' name='mlat' placeholder="Minutos Latitud"/>
+        <input type='number' name='slat' placeholder="Segundos Latitud"/>
+        <input type='submit' value='Enviar'/>
+    </form>
 </div>
 
 <a class="btn btn-outline-primary" href="/estaciones" role="button">Volver</a>

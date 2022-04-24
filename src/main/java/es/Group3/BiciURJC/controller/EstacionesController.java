@@ -71,4 +71,19 @@ public class EstacionesController {
         model.addAttribute("detallesBicis", bicis);
         return "detallesEstacion";
     }
+    @GetMapping("/modCoords")
+    public String modificarCoords(Model model, @RequestParam String num_serie, @RequestParam int glon, @RequestParam int mlon, @RequestParam int slon, @RequestParam int glat, @RequestParam int mlat, @RequestParam int slat) {
+        Estacion estacion = estaciones.findByNum_Serie(num_serie);
+        if (estacion==null){
+            return "redirect:/errorFormulario";
+        }
+        else {
+            Coords lon = new Coords(glon, mlon, slon);
+            Coords lat = new Coords(glat, mlat, slat);
+            estacion.setLat(lat);
+            estacion.setLon(lon);
+            estaciones.save(estacion);
+        }
+        return "redirect:/estaciones";
+    }
 }
