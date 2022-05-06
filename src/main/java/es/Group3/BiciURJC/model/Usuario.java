@@ -12,14 +12,20 @@ public class Usuario{
 
     private String password;
     @Column(unique = true)
+    private String login;
     private String fullName;
     private String entryDate;
     private EstadoUsuario estado;
+    private double saldo;
 
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -52,12 +58,14 @@ public class Usuario{
 
     protected Usuario() {}
 
-    public Usuario(String password, String fullName){
+    public Usuario(String password, String fullName, String login, double saldo){
         super();
         this.password = password;
         this.fullName = fullName;
         this.entryDate = dtf.format(LocalDate.now());
         this.estado = EstadoUsuario.ACTIVO;
+        this.login = login;
+        this.saldo = saldo;
     }
 
     @Override
