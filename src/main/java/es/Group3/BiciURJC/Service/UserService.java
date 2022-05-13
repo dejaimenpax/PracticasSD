@@ -30,7 +30,7 @@ public class UserService {
         }
         this.users.put(user.getId(), user);
     }
-    public void deleteById(long id) {
+    public void deleteById(long id) {//se supone que al borrar un usuario se deja inactivo, pero no dice nada de sacarlo de la base de datos
         this.users.remove(id);
     }
 

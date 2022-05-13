@@ -24,7 +24,7 @@ public class UsuariosController {
     private Logger log = LoggerFactory.getLogger(UsuariosController.class);
     
     @GetMapping("/")
-    public Collection<Usuario> getusers() {
+    public Collection<Usuario> getUsers() {
         return usuarios.findAll();
     }
 
@@ -71,5 +71,34 @@ public class UsuariosController {
         Usuario usuario = usuarios.findByFullName(fullName);
         model.addAttribute("detalles", usuario);
         return "detallesUsuario";
+    }
+
+    @PutMapping("/payment/{id}")
+    public ResponseEntity<Usuario> payment(@PathVariable long id){
+        Usuario user = usuarios.findById(id);
+        if ((user != null)) {
+            if(user.getSaldo()>=5) {//he supuesto 2,5€ alquiler y otros 2,5€ la fianza
+                user.setSaldo(user.getSaldo() - 5);
+                usuarios.save(user);
+                return ResponseEntity.ok(user);
+            }else{
+                System.out.println("No dispone de suficiente saldo para realizar la operacion");//tal vez sacar esto en una excepcion?
+                return ResponseEntity.unprocessableEntity().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/devolution/{id}")
+    public ResponseEntity<Usuario> devolution(@PathVariable long id){
+        Usuario user = usuarios.findById(id);
+        if ((user != null)) {
+            user.setSaldo(user.getSaldo() + 2.5);//2,5€ de la fianza
+            usuarios.save(user);
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

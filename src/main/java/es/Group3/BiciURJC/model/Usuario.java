@@ -56,6 +56,14 @@ public class Usuario{
         this.estado = estado;
     }
 
+    public double getSaldo() {
+        return saldo;
+    }
+    public void setSaldo(double saldo) {
+        this.saldo=saldo;
+    }
+
+
     protected Usuario() {}
 
     public Usuario(String password, String fullName, String login, double saldo){
