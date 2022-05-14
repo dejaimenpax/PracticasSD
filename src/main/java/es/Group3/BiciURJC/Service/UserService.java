@@ -1,6 +1,7 @@
 package es.Group3.BiciURJC.Service;
 
 import es.Group3.BiciURJC.Repository.UsuariosRepository;
+import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,8 @@ public class UserService {
         return users.save(user);
     }
 
-    public void deleteById(long id) {//se supone que al borrar un usuario se deja inactivo, pero no dice nada de sacarlo de la base de datos
-        users.deleteById(id);
+    public void delete(long id) {//se supone que al borrar un usuario se deja inactivo, pero no dice nada de sacarlo de la base de datos
+        users.getById(id).setEstado(EstadoUsuario.INACTIVO);
     }
 
     public Optional<Usuario> findById(long id){
