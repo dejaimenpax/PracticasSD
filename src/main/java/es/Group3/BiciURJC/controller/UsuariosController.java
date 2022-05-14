@@ -3,6 +3,7 @@ package es.Group3.BiciURJC.controller;
 
 import es.Group3.BiciURJC.Repository.UsuariosRepository;
 import es.Group3.BiciURJC.Service.UserService;
+import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +63,7 @@ public class UsuariosController {
     public ResponseEntity<Usuario> deleteUser(@PathVariable long id) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
-            usuarios.deleteById(id);
+            user.get().setEstado(EstadoUsuario.INACTIVO);
             return ResponseEntity.ok(user.get());
         } else {
             return ResponseEntity.notFound().build();
