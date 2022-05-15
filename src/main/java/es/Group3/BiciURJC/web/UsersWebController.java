@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/api/users")
 public class UsersWebController {
     @Autowired
     private UserService usuarios;
