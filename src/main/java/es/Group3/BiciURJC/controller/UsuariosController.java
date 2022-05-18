@@ -1,7 +1,6 @@
 package es.Group3.BiciURJC.controller;
 
 
-import es.Group3.BiciURJC.Repository.UsuariosRepository;
 import es.Group3.BiciURJC.Service.UserService;
 import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;
@@ -31,13 +30,6 @@ public class UsuariosController {
         return usuarios.findAll();
     }
 
-    @GetMapping("/usuarios/busqueda")
-    public String view(Model model, @RequestParam String fullName){
-        Optional<Usuario> usuario = usuarios.findByFullName(fullName);
-        model.addAttribute("busqueda", usuario);
-        return "busquedaUsuarios";
-    }
-
     @PostMapping("/")
     public ResponseEntity<Usuario> createUser(@RequestBody Usuario user) {
         usuarios.save(user);
@@ -45,25 +37,43 @@ public class UsuariosController {
         return ResponseEntity.created(location).body(user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/{login}/{contraseña}/{fullname}/{saldo}/{estado}")
     public ResponseEntity<Usuario> replaceUser(@PathVariable long id,
-                                            @RequestBody Usuario newUser) {
+                                            @PathVariable String login, @PathVariable String contraseña,
+                                            @PathVariable String fullname, @PathVariable double saldo,
+                                            @PathVariable EstadoUsuario estado) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
-            newUser.setId(id);
-            usuarios.save(newUser);
-            return ResponseEntity.ok(newUser);
+            user.get().setId(id);
+            user.get().setSaldo(saldo);
+            user.get().setPassword(contraseña);
+            user.get().setFullName(fullname);
+            user.get().setEstado(estado);
+            user.get().setLogin(login);
+            usuarios.save(user.get());
+            return ResponseEntity.ok(user.get());
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    @GetMapping("/search/{id}")
+    public ResponseEntity<Usuario> searchUser(@PathVariable long id) {
+        Optional<Usuario> user = usuarios.findById(id);
+        if (user.isPresent()){
+            return ResponseEntity.ok(user.get());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Usuario> deleteUser(@PathVariable long id) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
-            usuarios.delete(id);
+            user.get().setEstado(EstadoUsuario.INACTIVO);
+            usuarios.save(user.get());
             return ResponseEntity.ok(user.get());
         } else {
             return ResponseEntity.notFound().build();
@@ -78,13 +88,6 @@ public class UsuariosController {
         }else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping("/detallesUsuario/{fullName}")
-    public String detallesUsuario (Model model, @PathVariable String fullName){
-        Optional<Usuario> usuario = usuarios.findByFullName(fullName);
-        model.addAttribute("detalles", usuario);
-        return "detallesUsuario";
     }
 
     @PutMapping("/payment/{id}")
