@@ -44,7 +44,7 @@ public class UsuariosController {
     }
 
     @PutMapping("/{id}/{login}/{contraseña}/{fullname}/{saldo}/{estado}")
-    @Operation(summary = "Actualizar/modifciar usuario")
+    @Operation(summary = "Actualizar/modificar usuario")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -65,20 +65,12 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<Usuario> replaceUser(@PathVariable long id,
-                                            @PathVariable String login, @PathVariable String contraseña,
-                                            @PathVariable String fullname, @PathVariable double saldo,
-                                            @PathVariable EstadoUsuario estado) {
+    public ResponseEntity<Usuario> replaceUser(@PathVariable long id, @RequestBody Usuario newUser) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
-            user.get().setId(id);
-            user.get().setSaldo(saldo);
-            user.get().setPassword(contraseña);
-            user.get().setFullName(fullname);
-            user.get().setEstado(estado);
-            user.get().setLogin(login);
-            usuarios.save(user.get());
-            return ResponseEntity.ok(user.get());
+            newUser.setId(id);
+            usuarios.save(newUser);
+            return ResponseEntity.ok(newUser);
         } else {
             return ResponseEntity.notFound().build();
         }
