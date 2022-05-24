@@ -1,6 +1,6 @@
 package es.Group3.BiciURJC.model;
 
-import es.Group3.BiciURJC.controller.exceptions.*;
+import es.Group3.BiciURJC.controller.exceptions.IncorrectStationCapacity;
 
 import javax.persistence.*;
 import java.time.LocalDate;

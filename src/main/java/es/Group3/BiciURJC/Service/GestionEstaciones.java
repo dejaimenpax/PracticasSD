@@ -1,11 +1,13 @@
 package es.Group3.BiciURJC.Service;
 
 import es.Group3.BiciURJC.Repository.EstacionRepository;
-import es.Group3.BiciURJC.controller.exceptions.*;
 import es.Group3.BiciURJC.model.Bicicleta;
 import es.Group3.BiciURJC.model.Estacion;
 import es.Group3.BiciURJC.model.EstadoBicicleta;
 
+import es.Group3.BiciURJC.controller.exceptions.IllegalStateChange;
+import es.Group3.BiciURJC.controller.exceptions.IllegalStationAssociation;
+import es.Group3.BiciURJC.controller.exceptions.IncorrectStationCapacity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

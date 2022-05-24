@@ -1,15 +1,18 @@
 package es.Group3.BiciURJC.controller;
 
+import es.Group3.BiciURJC.Repository.BicicletasRepository;
 import es.Group3.BiciURJC.Repository.EstacionRepository;
 import es.Group3.BiciURJC.Service.GestionEstaciones;
-import es.Group3.BiciURJC.model.*;
+import es.Group3.BiciURJC.model.Bicicleta;
+import es.Group3.BiciURJC.model.Coords;
+import es.Group3.BiciURJC.model.Estacion;
+import es.Group3.BiciURJC.model.EstadoEstacion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import es.Group3.BiciURJC.Repository.BicicletasRepository;
 
 import java.util.List;
 

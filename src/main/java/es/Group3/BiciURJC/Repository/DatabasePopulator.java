@@ -1,6 +1,9 @@
 package es.Group3.BiciURJC.Repository;
 
-import es.Group3.BiciURJC.model.*;
+import es.Group3.BiciURJC.model.Bicicleta;
+import es.Group3.BiciURJC.model.Coords;
+import es.Group3.BiciURJC.model.Estacion;
+import es.Group3.BiciURJC.model.EstadoEstacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
