@@ -37,11 +37,12 @@ public class EstacionService {
     public Estacion save(Estacion estacion) {
         return estaciones.save(estacion);
     }
-    public void editarCoordenadas(Long id, Coords coordenadas) {
-        estaciones.updateCoordenadasById(id, coordenadas);
+    public void editarCoordenadas(Long id, Coords lat, Coords lon) {
+        estaciones.updateLatById(id, lat);
+        estaciones.updateLonById(id, lon);
     }
     public void editarActivo(Long id, EstadoEstacion estado) {
-        estaciones.updateEstadoById(id, estado);
+        estaciones.updateStationStateById(id, estado);
     }
     public void delete(Long Id) {
         estaciones.deleteById(Id);
