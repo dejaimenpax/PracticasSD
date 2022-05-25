@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 @RestController
-@RequestMapping("/reserve")
+@RequestMapping("/reserves")
 public class ReservaDevolucionRestController {
 	@Autowired
 	private BicicletaService bicicletas;
@@ -49,7 +49,7 @@ public class ReservaDevolucionRestController {
 		return bicicletas.findAll();
 	}
 
-	@PutMapping("/bicycles/{id}")
+	@PutMapping("/")
 	@Operation(summary = "Reservar bicicleta")
 	@ApiResponses(value = {
 			@ApiResponse(
@@ -71,9 +71,9 @@ public class ReservaDevolucionRestController {
 					content = @Content
 			)
 	})
-	public ResponseEntity<Bicicleta> reserve(@PathVariable Long id, @RequestBody CapsulaIds identificadores) {
+	public ResponseEntity<Bicicleta> reserve(@RequestBody CapsulaIds identificadores) {
 		Optional<Estacion> aux_st = estaciones.findOne(identificadores.getStation_id());
-		Optional<Bicicleta> aux_bici = bicicletas.findOne(id);
+		Optional<Bicicleta> aux_bici = bicicletas.findOne(identificadores.getBicycle_id());
 
 		if (aux_st.isPresent() && aux_bici.isPresent()) {
 
@@ -107,7 +107,7 @@ public class ReservaDevolucionRestController {
 			return ResponseEntity.notFound().build();
 	}
 
-	@PutMapping("/stations/{id}")
+	@PutMapping("/bicycles/free")
 	@Operation(summary = "Devolver bicicleta")
 	@ApiResponses(value = {
 			@ApiResponse(
@@ -129,8 +129,8 @@ public class ReservaDevolucionRestController {
 					content = @Content
 			)
 	})
-	public ResponseEntity<Bicicleta> returnBicycle(@PathVariable Long id, @RequestBody CapsulaIds identificadores){
-		Optional<Estacion> aux_st = estaciones.findOne(id);
+	public ResponseEntity<Bicicleta> returnBicycle(@RequestBody CapsulaIds identificadores){
+		Optional<Estacion> aux_st = estaciones.findOne(identificadores.getStation_id());
 		Optional<Bicicleta> aux_bici = bicicletas.findOne(identificadores.getBicycle_id());
 		if (aux_st.isPresent() && aux_bici.isPresent()) {
 			Estacion estacion= aux_st.get();
