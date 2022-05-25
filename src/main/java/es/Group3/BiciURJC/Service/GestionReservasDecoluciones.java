@@ -36,8 +36,7 @@ public class GestionReservasDecoluciones {
 	}
 	
 	public Estacion saveEstacion (Estacion estacion) {
-		Estacion nuevaEstacion =estacionrepo.save(estacion);
-		return nuevaEstacion;
+		return estacionrepo.save(estacion);
 	}
 	
 	// Progreso Parametros Bicicleta
@@ -51,8 +50,7 @@ public class GestionReservasDecoluciones {
 	}
 	
 	public Bicicleta saveBici (Bicicleta bk) {
-		Bicicleta nuevaBici =bicicletarepo.save(bk);
-		return nuevaBici;
+		return bicicletarepo.save(bk);
 	}
 	
 	public void deleteByIdBici (Long id) {

@@ -31,8 +31,8 @@ public class DatabasePopulator {
         Estacion estacion1;
         Estacion estacion2;
         blogestacionrepository.saveAll(Arrays.asList(
-                estacion1 = new Estacion("Estacion1",5, new Coords(21,32,43), new Coords(78,23,98), EstadoEstacion.ACTIVA),
-                estacion2 = new Estacion("Estacion2",10, new Coords(21,32,43), new Coords(78,23,98), EstadoEstacion.ACTIVA)
+                estacion1 = new Estacion("Estacion_1",5, new Coords(21,32,43), new Coords(30,23,98), EstadoEstacion.ACTIVA),
+                estacion2 = new Estacion("Estacion_2",10, new Coords(21,32,43), new Coords(76,10,98), EstadoEstacion.ACTIVA)
         ));
 
         blogbicicletasrepository.saveAll(Arrays.asList(
