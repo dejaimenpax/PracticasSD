@@ -1,5 +1,6 @@
 package es.Group3.BiciURJC.Service;
 
+import es.Group3.BiciURJC.DTO.UsuarioDto;
 import es.Group3.BiciURJC.Repository.UsuariosRepository;
 import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;

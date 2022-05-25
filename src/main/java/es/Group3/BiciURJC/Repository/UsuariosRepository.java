@@ -1,9 +1,12 @@
 package es.Group3.BiciURJC.Repository;
 
+import es.Group3.BiciURJC.DTO.UsuarioDto;
 import es.Group3.BiciURJC.model.Usuario;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuariosRepository extends JpaRepository<Usuario,Long> {
@@ -16,4 +19,5 @@ public interface UsuariosRepository extends JpaRepository<Usuario,Long> {
             value = "SELECT * FROM USUARIO WHERE LOGIN = ?1",
             nativeQuery = true)
     Optional<Usuario> findByLogin(String Login);
+
 }

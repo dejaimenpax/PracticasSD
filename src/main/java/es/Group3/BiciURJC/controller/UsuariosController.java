@@ -1,6 +1,7 @@
 package es.Group3.BiciURJC.controller;
 
 
+import es.Group3.BiciURJC.DTO.UsuarioDto;
 import es.Group3.BiciURJC.Service.UserService;
 import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;
@@ -9,8 +10,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,10 +49,12 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<Usuario> createUser(@RequestBody Usuario user) {
+    public ResponseEntity<UsuarioDto> createUser(@RequestBody Usuario user) {
         usuarios.save(user);
+        UsuarioDto userdto = new UsuarioDto(user.getLogin(), user.getFullName(), user.getEntryDate(),
+                                            user.getEstado(), user.getSaldo());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-        return ResponseEntity.created(location).body(user);
+        return ResponseEntity.created(location).body(userdto);
     }
 
     @PutMapping("/{id}/{login}/{password}/{fullname}/{saldo}/{estado}")
@@ -78,12 +79,14 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<Usuario> replaceUser(@PathVariable long id, @RequestBody Usuario newUser) {
+    public ResponseEntity<UsuarioDto> replaceUser(@PathVariable long id, @RequestBody Usuario newUser) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
+            UsuarioDto userdto = new UsuarioDto(newUser.getLogin(), newUser.getFullName(), newUser.getEntryDate(),
+                                                newUser.getEstado(), newUser.getSaldo());
             newUser.setId(id);
             usuarios.save(newUser);
-            return ResponseEntity.ok(newUser);
+            return ResponseEntity.ok(userdto);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -111,10 +114,12 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<Usuario> loginUser(@PathVariable String login, @PathVariable String password){
+    public ResponseEntity<UsuarioDto> loginUser(@PathVariable String login, @PathVariable String password){
         Optional<Usuario> user = usuarios.findByLogin(login);
         if(user.isPresent()&&(user.get().getPassword().equals(password))) {
-            return ResponseEntity.ok(user.get());
+            UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
+                                                user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
+            return ResponseEntity.ok(userdto);
         }else {
             return ResponseEntity.notFound().build();
         }
@@ -142,12 +147,14 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<Usuario> deleteUser(@PathVariable long id) {
+    public ResponseEntity<UsuarioDto> deleteUser(@PathVariable long id) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
             user.get().setEstado(EstadoUsuario.INACTIVO);
             usuarios.save(user.get());
-            return ResponseEntity.ok(user.get());
+            UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
+                    user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
+            return ResponseEntity.ok(userdto);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -175,10 +182,12 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<Usuario> getUser(@PathVariable long id){
+    public ResponseEntity<UsuarioDto> getUser(@PathVariable long id){
         Optional<Usuario> user = usuarios.findById(id);
         if(user.isPresent()) {
-            return ResponseEntity.ok(user.get());
+            UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
+                    user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
+            return ResponseEntity.ok(userdto);
         }else {
             return ResponseEntity.notFound().build();
         }
@@ -210,7 +219,7 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<Usuario> payment(@PathVariable long id){
+    public ResponseEntity<UsuarioDto> payment(@PathVariable long id){
         Optional<Usuario> user = usuarios.findById(id);
         double precio = 2.5;
         double pago = 2*precio;
@@ -219,7 +228,9 @@ public class UsuariosController {
                 if(user.get().getSaldo()>=pago) {//he supuesto 2,5€ alquiler y otros 2,5€ la fianza
                     user.get().setSaldo(user.get().getSaldo() - (pago));
                     usuarios.save(user.get());
-                    return ResponseEntity.ok(user.get());
+                    UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
+                            user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
+                    return ResponseEntity.ok(userdto);
                 }else{
                     System.out.println("La bicicleta cuesta "+ precio +", y el pago a realizar es de "+ pago +" por lo que no tiene suficiente dinero en la cuenta");//tal vez sacar esto en una excepcion?
                     return ResponseEntity.unprocessableEntity().build();
@@ -254,13 +265,15 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<Usuario> devolution(@PathVariable long id){
+    public ResponseEntity<UsuarioDto> devolution(@PathVariable long id){
         Optional<Usuario> user = usuarios.findById(id);
         if ((user.isPresent())) {
             //comprobacion usuario tiene bici reservada, creo que se hace desde apiBICIS
             user.get().setSaldo(user.get().getSaldo() + 2.5);//2,5€ de la fianza
             usuarios.save(user.get());
-            return ResponseEntity.ok(user.get());
+            UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
+                    user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
+            return ResponseEntity.ok(userdto);
         } else {
             return ResponseEntity.notFound().build();
         }
