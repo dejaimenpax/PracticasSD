@@ -1,5 +1,7 @@
 package es.Group3.BiciURJC.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +20,7 @@ public class Bicicleta {
     @Column(length = 1024)
     private CapsulaEstado<EstadoBicicleta> estado = new CapsulaEstado<>();
 
+    @JsonIgnore
     @ManyToOne
     private Estacion estacion;
 
