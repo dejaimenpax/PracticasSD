@@ -40,4 +40,8 @@ public class UserService {
     public List<Usuario> findAll(){
         return users.findAll();
     }
+
+    public Optional<Usuario> findByLogin(String login){
+        return users.findByLogin(login);
+    }
 }

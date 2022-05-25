@@ -37,13 +37,28 @@ public class UsuariosController {
 
     @PostMapping("/")
     @Operation(summary = "Crear nuevo usuario")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Usuario creado",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation=Usuario.class)
+                    )}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Datos proporcionados invalidos",
+                    content = @Content
+            )
+    })
     public ResponseEntity<Usuario> createUser(@RequestBody Usuario user) {
         usuarios.save(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(location).body(user);
     }
 
-    @PutMapping("/{id}/{login}/{contraseña}/{fullname}/{saldo}/{estado}")
+    @PutMapping("/{id}/{login}/{password}/{fullname}/{saldo}/{estado}")
     @Operation(summary = "Actualizar/modificar usuario")
     @ApiResponses(value = {
             @ApiResponse(
@@ -76,16 +91,36 @@ public class UsuariosController {
         }
     }
 
-    /*@GetMapping("/search/{id}") //Este metodo y getUser son literalmente iguales
-    public ResponseEntity<Usuario> searchUser(@PathVariable long id) {
-        Optional<Usuario> user = usuarios.findById(id);
-        if (user.isPresent()){
+    @GetMapping("/{login}/{password}")
+    @Operation(summary = "Login de usuario")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Bienvenido al sistema",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation=Usuario.class)
+                    )}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Login proporcionado invalido",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Usuario no encontrado/contraseña incorrecta",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<Usuario> loginUser(@PathVariable String login, @PathVariable String password){
+        Optional<Usuario> user = usuarios.findByLogin(login);
+        if(user.isPresent()&&(user.get().getPassword().equals(password))) {
             return ResponseEntity.ok(user.get());
-        }
-        else{
+        }else {
             return ResponseEntity.notFound().build();
         }
-    }*/
+    }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar usuario por su id")
@@ -152,7 +187,7 @@ public class UsuariosController {
     }
 
     @PutMapping("/payment/{id}")
-    @Operation(summary = "Realizar pago de bicicleta")
+    @Operation(summary = "Realizar pago para reserva de bicicleta")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -170,18 +205,25 @@ public class UsuariosController {
                     responseCode = "404",
                     description = "Usuario no encontrado",
                     content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "422",
+                    description = "Usuario inactivo (eliminado del sistema)",
+                    content = @Content
             )
     })
     public ResponseEntity<Usuario> payment(@PathVariable long id){
         Optional<Usuario> user = usuarios.findById(id);
+        double precio = 2.5;
+        double pago = 2*precio;
         if (user.isPresent()) {
             if(user.get().getEstado()==EstadoUsuario.ACTIVO){
-                if(user.get().getSaldo()>=5) {//he supuesto 2,5€ alquiler y otros 2,5€ la fianza
-                    user.get().setSaldo(user.get().getSaldo() - 5);
+                if(user.get().getSaldo()>=pago) {//he supuesto 2,5€ alquiler y otros 2,5€ la fianza
+                    user.get().setSaldo(user.get().getSaldo() - (pago));
                     usuarios.save(user.get());
                     return ResponseEntity.ok(user.get());
                 }else{
-                    System.out.println("No dispone de suficiente saldo para realizar la operacion");//tal vez sacar esto en una excepcion?
+                    System.out.println("La bicicleta cuesta "+ precio +", y el pago a realizar es de "+ pago +" por lo que no tiene suficiente dinero en la cuenta");//tal vez sacar esto en una excepcion?
                     return ResponseEntity.unprocessableEntity().build();
                 }
             }else{
@@ -193,7 +235,8 @@ public class UsuariosController {
         }
     }
 
-    @PutMapping("/devolution/{id}")@Operation(summary = "Devolver fianza del alquiler una vez finalizado")
+    @PutMapping("/devolution/{id}")
+    @Operation(summary = "Devolver fianza del alquiler una vez finalizado")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
