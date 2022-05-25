@@ -83,9 +83,9 @@ public class ReservaDevolucionRestController {
 			assert data != null;
 			double saldo = data.get("saldo").asDouble(0);
 
-			if(saldo >=3) {
+			if(saldo >=5) {
 				if(estacion.getEstado() == EstadoEstacion.ACTIVA && bici.getEstacion().getId().equals(estacion.getId()) && bici.getEstado().getLista().getFirst() == EstadoBicicleta.EN_BASE){
-					double new_saldo = data.get("saldo").asDouble()-3;
+					double new_saldo = data.get("saldo").asDouble()-5;
 					aux_bici.get().getEstado().getLista().removeFirst();
 					aux_bici.get().getEstado().getLista().addFirst(EstadoBicicleta.RESERVADA);
 					aux_bici.get().setEstacion(null);
@@ -139,7 +139,7 @@ public class ReservaDevolucionRestController {
 					String url = "http://localhost:8081/users/" + identificadores.getUser_id();
 					ObjectNode data = plantilla.getForObject(url, ObjectNode.class);
 					assert data != null;
-					double new_saldo = data.get("saldo").asDouble()+ 1.5;
+					double new_saldo = data.get("saldo").asDouble()+ 2.5;
 					aux_bici.get().getEstado().getLista().removeFirst();
 					aux_bici.get().getEstado().getLista().addFirst(EstadoBicicleta.EN_BASE);
 					aux_bici.get().setEstacion(aux_st.get());
