@@ -4,9 +4,8 @@ package es.Group3.BiciURJC.controller;
 import es.Group3.BiciURJC.Service.BicicletaService;
 import es.Group3.BiciURJC.Service.EstacionService;
 import es.Group3.BiciURJC.Service.GestionReservasDecoluciones;
-import es.Group3.BiciURJC.model.Bicicleta;
-import es.Group3.BiciURJC.model.Estacion;
-import es.Group3.BiciURJC.model.Rest;
+import es.Group3.BiciURJC.controller.exceptions.InsufficentBalance;
+import es.Group3.BiciURJC.model.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +43,43 @@ public class ReservaDevolucionRestController {
 	public Collection<Bicicleta> getBicycles() {
 		return bicicletas.findAll();
 	}
+
+	@PutMapping("/")
+	public ResponseEntity<Bicicleta> reserve(@RequestBody CapsulaIds identificadores) {
+		Optional<Estacion> aux_st = estaciones.findOne(identificadores.getStation_id());
+		Optional<Bicicleta> aux_bici = bicicletas.findOne(identificadores.getBicycle_id());
+
+		if (aux_st.isPresent() && aux_bici.isPresent()) {
+
+			Estacion estacion = aux_st.get();
+			Bicicleta bici = aux_bici.get();
+			RestTemplate plantilla = new RestTemplate();
+			String url ="http://localhost:8081/users/" + identificadores.getUser_id();
+			ObjectNode data = plantilla.getForObject(url, ObjectNode.class);
+			assert data != null;
+			double saldo = data.get("saldo").asDouble(0);
+
+			if(saldo >=3) {
+				if(estacion.getEstado() == EstadoEstacion.ACTIVA && bici.getEstacion().getId().equals(estacion.getId()) && bici.getEstado().getLista().getFirst() == EstadoBicicleta.EN_BASE){
+					double new_saldo = data.get("saldo").asDouble()-3;
+					aux_bici.get().getEstado().getLista().addFirst(EstadoBicicleta.RESERVADA);
+					aux_bici.get().setEstacion(null);
+					aux_st.get().deleteBike(aux_bici.get());
+					estaciones.save(aux_st.get());
+					bicicletas.save(aux_bici.get());
+					data.put("saldo", new_saldo);
+					plantilla.put(url,data);
+					URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+					return ResponseEntity.created(location).build();
+				}
+				else
+					return ResponseEntity.unprocessableEntity().build();
+			} else
+				throw new InsufficentBalance("Saldo insuficiente");
+		} else
+			return ResponseEntity.notFound().build();
+	}
+
 
 
 }
