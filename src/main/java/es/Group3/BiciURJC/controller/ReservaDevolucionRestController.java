@@ -35,8 +35,6 @@ public class ReservaDevolucionRestController {
 	@Autowired
 	private EstacionService estaciones;
 
-
-
 	@GetMapping("/stations")
 	@Operation(summary = "Obtener lista de estaciones")
 	public Collection<Estacion> getStations() {
