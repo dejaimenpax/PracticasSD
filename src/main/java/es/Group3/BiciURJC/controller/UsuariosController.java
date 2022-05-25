@@ -27,8 +27,6 @@ public class UsuariosController {
     @Autowired
     private UserService usuarios;
     
-    private Logger log = LoggerFactory.getLogger(UsuariosController.class);
-    
     @GetMapping("/")
     @Operation(summary = "Obtener lista de usuarios")
     public Collection<Usuario> getUsers() {
