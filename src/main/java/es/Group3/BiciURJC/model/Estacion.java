@@ -1,5 +1,6 @@
 package es.Group3.BiciURJC.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import es.Group3.BiciURJC.controller.exceptions.IncorrectStationCapacity;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Estacion {
 	private EstadoEstacion estado;
 
 	@SuppressWarnings("JpaAttributeTypeInspection")
+	@JsonIgnore
 	@OneToMany(mappedBy = "estacion", orphanRemoval = false)
 	private List<Bicicleta> listaBicis = new ArrayList<>();
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
