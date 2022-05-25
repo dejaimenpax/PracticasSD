@@ -49,7 +49,7 @@ public class ReservaDevolucionRestController {
 		return bicicletas.findAll();
 	}
 
-	@PutMapping("/")
+	@PutMapping("/bicycles")
 	@Operation(summary = "Reservar bicicleta")
 	@ApiResponses(value = {
 			@ApiResponse(
