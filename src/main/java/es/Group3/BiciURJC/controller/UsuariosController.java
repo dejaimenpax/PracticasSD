@@ -86,7 +86,6 @@ public class UsuariosController {
             UsuarioDto userdto = new UsuarioDto(newUser.getLogin(), newUser.getFullName(), user.get().getEntryDate(),
                                                 newUser.getEstado(), newUser.getSaldo());
             newUser.setId(id);
-            newUser.setPassword(user.get().getPassword());
             usuarios.save(newUser);
             return ResponseEntity.ok(userdto);
         } else {
