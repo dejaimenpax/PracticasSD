@@ -225,14 +225,14 @@ public class UsuariosController {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
             if(user.get().getEstado()==EstadoUsuario.ACTIVO){
-                if(user.get().getSaldo()>=price*2) {//he supuesto 2,5€ alquiler y otros 2,5€ la fianza
+                if(user.get().getSaldo()>=price*2) {
                     user.get().setSaldo(user.get().getSaldo() - (price*2));
                     usuarios.save(user.get());
                     UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                             user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
                     return ResponseEntity.ok(userdto);
                 }else{
-                    System.out.println("La bicicleta cuesta "+ price +", y el pago a realizar es de "+ price*2 +" por lo que no tiene suficiente dinero en la cuenta");//tal vez sacar esto en una excepcion?
+                    System.out.println("La bicicleta cuesta "+ price +", y el pago a realizar es de "+ price*2 +" por lo que no tiene suficiente dinero en la cuenta");
                     return ResponseEntity.unprocessableEntity().build();
                 }
             }else{
@@ -268,8 +268,7 @@ public class UsuariosController {
     public ResponseEntity<UsuarioDto> devolution(@PathVariable long id, @PathVariable double price){
         Optional<Usuario> user = usuarios.findById(id);
         if ((user.isPresent())) {
-            //comprobacion usuario tiene bici reservada, creo que se hace desde apiBICIS
-            user.get().setSaldo(user.get().getSaldo() + price);//2,5€ de la fianza
+            user.get().setSaldo(user.get().getSaldo() + price);
             usuarios.save(user.get());
             UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                     user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
