@@ -19,7 +19,11 @@ public class DatabasePopulator {
     public void populateDB(){
 
         blogusuariosrepository.saveAll(Arrays.asList(
-                new Usuario("123","Juan", "juanito", 250)
+                new Usuario("123","Juan", "juanito", 250),
+                new Usuario("456","Jose", "josito", 250),
+                new Usuario("789","David", "deivid", 250),
+                new Usuario("987","Adrian", "adri", 250),
+                new Usuario("654","Pedro", "pedri", 250)
         ));
     }
 
