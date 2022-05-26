@@ -1,6 +1,7 @@
 package es.Group3.BiciURJC.controller;
 
 
+import es.Group3.BiciURJC.DTO.BiciDTO;
 import es.Group3.BiciURJC.Service.BicicletaService;
 import es.Group3.BiciURJC.Service.EstacionService;
 import es.Group3.BiciURJC.controller.exceptions.IncorrectStationCapacity;
@@ -62,7 +63,7 @@ public class ReservaDevolucionRestController {
 					content = @Content
 			)
 	})
-	public ResponseEntity<Bicicleta> reserve(@RequestBody CapsulaIds identificadores) {
+	public ResponseEntity<BiciDTO> reserve(@RequestBody CapsulaIds identificadores) {
 		Optional<Estacion> aux_st = estaciones.findOne(identificadores.getStation_id());
 		Optional<Bicicleta> aux_bici = bicicletas.findOne(identificadores.getBicycle_id());
 
@@ -80,7 +81,9 @@ public class ReservaDevolucionRestController {
 				aux_st.get().deleteBike(aux_bici.get());
 				estaciones.save(aux_st.get());
 				bicicletas.save(aux_bici.get());
-				return ResponseEntity.ok(aux_bici.get());
+				BiciDTO bicidto = new BiciDTO(aux_bici.get().getNum_serie(), aux_bici.get().getModelo(), aux_bici.get().getFecha(),
+						aux_bici.get().getEstado().getLista().getFirst(), aux_bici.get().getEstacion(), aux_bici.get().getPricebook());
+				return ResponseEntity.ok(bicidto);
 			}
 			else
 				return ResponseEntity.unprocessableEntity().build();
@@ -88,7 +91,7 @@ public class ReservaDevolucionRestController {
 			return ResponseEntity.notFound().build();
 	}
 
-	@PostMapping("/bicycles/free")
+	@PostMapping("/bicycles/fee")
 	@Operation(summary = "Devolver bicicleta")
 	@ApiResponses(value = {
 			@ApiResponse(
@@ -110,7 +113,7 @@ public class ReservaDevolucionRestController {
 					content = @Content
 			)
 	})
-	public ResponseEntity<Bicicleta> returnBicycle(@RequestBody CapsulaIds identificadores){
+	public ResponseEntity<BiciDTO> returnBicycle(@RequestBody CapsulaIds identificadores){
 		Optional<Estacion> aux_st = estaciones.findOne(identificadores.getStation_id());
 		Optional<Bicicleta> aux_bici = bicicletas.findOne(identificadores.getBicycle_id());
 		if (aux_st.isPresent() && aux_bici.isPresent()) {
@@ -127,7 +130,9 @@ public class ReservaDevolucionRestController {
 					aux_st.get().addBici(aux_bici.get());
 					estaciones.save(aux_st.get());
 					bicicletas.save(aux_bici.get());
-					return ResponseEntity.ok(bici);
+					BiciDTO bicidto = new BiciDTO(aux_bici.get().getNum_serie(), aux_bici.get().getModelo(), aux_bici.get().getFecha(),
+							aux_bici.get().getEstado().getLista().getFirst(), aux_bici.get().getEstacion(), aux_bici.get().getPricebook());
+					return ResponseEntity.ok(bicidto);
 				}
 				else
 					throw new IncorrectStationCapacity("La estación no admite más bicicletas");
