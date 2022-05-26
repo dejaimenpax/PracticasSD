@@ -2,6 +2,7 @@ package es.Group3.BiciURJC.controller;
 
 
 import es.Group3.BiciURJC.DTO.UsuarioDto;
+import es.Group3.BiciURJC.Repository.UsuariosRepository;
 import es.Group3.BiciURJC.Service.UserService;
 import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;
@@ -94,39 +95,6 @@ public class UsuariosController {
         }
     }
 
-    @GetMapping("/{login}/{password}")
-    @Operation(summary = "Login de usuario")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Bienvenido al sistema",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation=Usuario.class)
-                    )}
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Login proporcionado invalido",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Usuario no encontrado/contraseña incorrecta",
-                    content = @Content
-            )
-    })
-    public ResponseEntity<UsuarioDto> loginUser(@PathVariable String login, @PathVariable String password){
-        Optional<Usuario> user = usuarios.findByLogin(login);
-        if(user.isPresent()&&(user.get().getPassword().equals(password))) {
-            UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
-                                                user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
-            return ResponseEntity.ok(userdto);
-        }else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar usuario por su id")
     @ApiResponses(value = {
@@ -152,7 +120,7 @@ public class UsuariosController {
     public ResponseEntity<UsuarioDto> deleteUser(@PathVariable long id) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
-            user.get().setEstado(EstadoUsuario.INACTIVO);
+            usuarios.delete(id);
             usuarios.save(user.get());
             UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                     user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
@@ -268,12 +236,15 @@ public class UsuariosController {
     public ResponseEntity<UsuarioDto> devolution(@PathVariable long id, @PathVariable double price){
         Optional<Usuario> user = usuarios.findById(id);
         if ((user.isPresent())) {
-            //comprobacion usuario tiene bici reservada, creo que se hace desde apiBICIS
-            user.get().setSaldo(user.get().getSaldo() + price);//2,5€ de la fianza
+            if (user.get().getEstado() == EstadoUsuario.ACTIVO){
+            user.get().setSaldo(user.get().getSaldo() + price);
             usuarios.save(user.get());
             UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                     user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
-            return ResponseEntity.ok(userdto);
+            return ResponseEntity.ok(userdto);}
+            else{
+                return ResponseEntity.internalServerError().build();
+            }
         } else {
             return ResponseEntity.notFound().build();
         }
