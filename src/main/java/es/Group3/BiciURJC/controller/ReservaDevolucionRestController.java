@@ -1,6 +1,7 @@
 package es.Group3.BiciURJC.controller;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import es.Group3.BiciURJC.Service.BicicletaService;
 import es.Group3.BiciURJC.Service.EstacionService;
 import es.Group3.BiciURJC.Service.GestionReservasDecoluciones;
@@ -80,8 +81,9 @@ public class ReservaDevolucionRestController {
 			RestTemplate plantilla = new RestTemplate();
 			String url ="http://localhost:8081/users/" + identificadores.getUser_id();
 			ObjectNode data = plantilla.getForObject(url, ObjectNode.class);
-			assert data != null;
-			double saldo = data.get("saldo").asDouble(0);
+			JsonNode item = data;
+			assert item != null;
+			double saldo = item.get("saldo").asDouble();
 
 			if(saldo >=5) {
 				if(estacion.getEstado() == EstadoEstacion.ACTIVA && bici.getEstacion().getId().equals(estacion.getId()) && bici.getEstado().getLista().getFirst() == EstadoBicicleta.EN_BASE){
