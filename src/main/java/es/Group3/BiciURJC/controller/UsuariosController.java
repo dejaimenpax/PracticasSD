@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.ServletException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
@@ -193,7 +194,7 @@ public class UsuariosController {
         }
     }
 
-    @PutMapping("/payment/{id}")
+    @PostMapping("/payment/{id}/{price}")
     @Operation(summary = "Realizar pago para reserva de bicicleta")
     @ApiResponses(value = {
             @ApiResponse(
@@ -219,20 +220,18 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<UsuarioDto> payment(@PathVariable long id){
+    public ResponseEntity<UsuarioDto> payment(@PathVariable long id, @PathVariable double price) {
         Optional<Usuario> user = usuarios.findById(id);
-        double precio = 2.5;
-        double pago = 2*precio;
         if (user.isPresent()) {
             if(user.get().getEstado()==EstadoUsuario.ACTIVO){
-                if(user.get().getSaldo()>=pago) {//he supuesto 2,5€ alquiler y otros 2,5€ la fianza
-                    user.get().setSaldo(user.get().getSaldo() - (pago));
+                if(user.get().getSaldo()>=price*2) {//he supuesto 2,5€ alquiler y otros 2,5€ la fianza
+                    user.get().setSaldo(user.get().getSaldo() - (price*2));
                     usuarios.save(user.get());
                     UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                             user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
                     return ResponseEntity.ok(userdto);
                 }else{
-                    System.out.println("La bicicleta cuesta "+ precio +", y el pago a realizar es de "+ pago +" por lo que no tiene suficiente dinero en la cuenta");//tal vez sacar esto en una excepcion?
+                    System.out.println("La bicicleta cuesta "+ price +", y el pago a realizar es de "+ price*2 +" por lo que no tiene suficiente dinero en la cuenta");//tal vez sacar esto en una excepcion?
                     return ResponseEntity.unprocessableEntity().build();
                 }
             }else{
@@ -244,7 +243,7 @@ public class UsuariosController {
         }
     }
 
-    @PutMapping("/devolution/{id}")
+    @PostMapping("/devolution/{id}/{price}")
     @Operation(summary = "Devolver fianza del alquiler una vez finalizado")
     @ApiResponses(value = {
             @ApiResponse(
@@ -265,11 +264,11 @@ public class UsuariosController {
                     content = @Content
             )
     })
-    public ResponseEntity<UsuarioDto> devolution(@PathVariable long id){
+    public ResponseEntity<UsuarioDto> devolution(@PathVariable long id, @PathVariable double price){
         Optional<Usuario> user = usuarios.findById(id);
         if ((user.isPresent())) {
             //comprobacion usuario tiene bici reservada, creo que se hace desde apiBICIS
-            user.get().setSaldo(user.get().getSaldo() + 2.5);//2,5€ de la fianza
+            user.get().setSaldo(user.get().getSaldo() + price);//2,5€ de la fianza
             usuarios.save(user.get());
             UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                     user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
