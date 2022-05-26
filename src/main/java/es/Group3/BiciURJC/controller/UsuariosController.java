@@ -2,7 +2,6 @@ package es.Group3.BiciURJC.controller;
 
 
 import es.Group3.BiciURJC.DTO.UsuarioDto;
-import es.Group3.BiciURJC.Repository.UsuariosRepository;
 import es.Group3.BiciURJC.Service.UserService;
 import es.Group3.BiciURJC.model.EstadoUsuario;
 import es.Group3.BiciURJC.model.Usuario;
@@ -87,10 +86,42 @@ public class UsuariosController {
             UsuarioDto userdto = new UsuarioDto(newUser.getLogin(), newUser.getFullName(), user.get().getEntryDate(),
                                                 newUser.getEstado(), newUser.getSaldo());
             newUser.setId(id);
-            newUser.setPassword(user.get().getPassword());
             usuarios.save(newUser);
             return ResponseEntity.ok(userdto);
         } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{login}/{password}")
+    @Operation(summary = "Login de usuario")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Bienvenido al sistema",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation=Usuario.class)
+                    )}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Login proporcionado invalido",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Usuario no encontrado/contraseña incorrecta",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<UsuarioDto> loginUser(@PathVariable String login, @PathVariable String password){
+        Optional<Usuario> user = usuarios.findByLogin(login);
+        if(user.isPresent()&&(user.get().getPassword().equals(password))) {
+            UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
+                                                user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
+            return ResponseEntity.ok(userdto);
+        }else {
             return ResponseEntity.notFound().build();
         }
     }
@@ -120,7 +151,7 @@ public class UsuariosController {
     public ResponseEntity<UsuarioDto> deleteUser(@PathVariable long id) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
-            usuarios.delete(id);
+            user.get().setEstado(EstadoUsuario.INACTIVO);
             usuarios.save(user.get());
             UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                     user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
@@ -193,14 +224,14 @@ public class UsuariosController {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
             if(user.get().getEstado()==EstadoUsuario.ACTIVO){
-                if(user.get().getSaldo()>=price*2) {//he supuesto 2,5€ alquiler y otros 2,5€ la fianza
+                if(user.get().getSaldo()>=price*2) {
                     user.get().setSaldo(user.get().getSaldo() - (price*2));
                     usuarios.save(user.get());
                     UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                             user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
                     return ResponseEntity.ok(userdto);
                 }else{
-                    System.out.println("La bicicleta cuesta "+ price +", y el pago a realizar es de "+ price*2 +" por lo que no tiene suficiente dinero en la cuenta");//tal vez sacar esto en una excepcion?
+                    System.out.println("La bicicleta cuesta "+ price +", y el pago a realizar es de "+ price*2 +" por lo que no tiene suficiente dinero en la cuenta");
                     return ResponseEntity.unprocessableEntity().build();
                 }
             }else{
@@ -236,15 +267,11 @@ public class UsuariosController {
     public ResponseEntity<UsuarioDto> devolution(@PathVariable long id, @PathVariable double price){
         Optional<Usuario> user = usuarios.findById(id);
         if ((user.isPresent())) {
-            if (user.get().getEstado() == EstadoUsuario.ACTIVO){
             user.get().setSaldo(user.get().getSaldo() + price);
             usuarios.save(user.get());
             UsuarioDto userdto = new UsuarioDto(user.get().getLogin(), user.get().getFullName(),
                     user.get().getEntryDate(), user.get().getEstado(), user.get().getSaldo());
-            return ResponseEntity.ok(userdto);}
-            else{
-                return ResponseEntity.internalServerError().build();
-            }
+            return ResponseEntity.ok(userdto);
         } else {
             return ResponseEntity.notFound().build();
         }
