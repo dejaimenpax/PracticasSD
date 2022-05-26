@@ -8,20 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
 
 public interface EstacionRepository extends JpaRepository<Estacion,Long> {
-    @Query(
-            value = "SELECT * FROM ESTACION WHERE NUM_SERIE = ?1",
-            nativeQuery = true)
-    Estacion findByNum_Serie(String num_serie);
-
-    @Query(
-            value = "SELECT * FROM ESTACION WHERE NUM_SERIE = ?1",
-            nativeQuery = true)
-    List<Estacion> findByNum_SerieList(String num_serie);
-
-
     @Modifying
     @Query(
             value = "UPDATE Estacion st SET st.lat = :lat WHERE st.id = :id",

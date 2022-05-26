@@ -19,6 +19,7 @@ public class Bicicleta {
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");
     @Column(length = 1024)
     private CapsulaEstado<EstadoBicicleta> estado = new CapsulaEstado<>();
+    private double pricebook;
 
     @JsonIgnore
     @ManyToOne
@@ -26,21 +27,23 @@ public class Bicicleta {
 
     protected Bicicleta() {}
 
-    public Bicicleta(String num_serie, String modelo, EstadoBicicleta estado){
+    public Bicicleta(String num_serie, String modelo, EstadoBicicleta estado, double pricebook){
         super();
         this.num_serie = num_serie;
         this.modelo = modelo;
         this.entryDate = dtf.format(LocalDate.now());
         this.estado.getLista().addFirst(estado);
+        this.pricebook = pricebook;
     }
 
-    public Bicicleta(String num_serie, String modelo, EstadoBicicleta estado, Estacion estacion){
+    public Bicicleta(String num_serie, String modelo, EstadoBicicleta estado, Estacion estacion, double pricebook){
         super();
         this.num_serie = num_serie;
         this.modelo = modelo;
         this.entryDate = dtf.format(LocalDate.now());
         this.estado.getLista().addFirst(estado);
         this.estacion = estacion;
+        this.pricebook = pricebook;
     }
 
     public Long getId() {
@@ -81,6 +84,14 @@ public class Bicicleta {
 
     public void setEstacion(Estacion estacion) {
         this.estacion = estacion;
+    }
+
+    public double getPricebook() {
+        return pricebook;
+    }
+
+    public void setPricebook(double pricebook) {
+        this.pricebook = pricebook;
     }
 
     @Override

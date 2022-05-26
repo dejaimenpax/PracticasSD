@@ -1,12 +1,9 @@
 package es.Group3.BiciURJC.controller;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
 import es.Group3.BiciURJC.Service.BicicletaService;
 import es.Group3.BiciURJC.Service.EstacionService;
-import es.Group3.BiciURJC.Service.GestionReservasDecoluciones;
 import es.Group3.BiciURJC.controller.exceptions.IncorrectStationCapacity;
-import es.Group3.BiciURJC.controller.exceptions.InsufficentBalance;
 import es.Group3.BiciURJC.model.*;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,18 +11,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import org.springframework.http.ResponseEntity;
 
-import java.net.URI;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 @RestController
 @RequestMapping("/reserves")
@@ -48,7 +40,7 @@ public class ReservaDevolucionRestController {
 		return bicicletas.findAll();
 	}
 
-	@PutMapping("/")
+	@PostMapping("/bycicles/book")
 	@Operation(summary = "Reservar bicicleta")
 	@ApiResponses(value = {
 			@ApiResponse(
@@ -78,36 +70,25 @@ public class ReservaDevolucionRestController {
 
 			Estacion estacion = aux_st.get();
 			Bicicleta bici = aux_bici.get();
-			RestTemplate plantilla = new RestTemplate();
-			String url ="http://localhost:8081/users/" + identificadores.getUser_id();
-			ObjectNode data = plantilla.getForObject(url, ObjectNode.class);
-			JsonNode item = data;
-			assert item != null;
-			double saldo = item.get("saldo").asDouble();
-
-			if(saldo >=5) {
-				if(estacion.getEstado() == EstadoEstacion.ACTIVA && bici.getEstacion().getId().equals(estacion.getId()) && bici.getEstado().getLista().getFirst() == EstadoBicicleta.EN_BASE){
-					double new_saldo = data.get("saldo").asDouble()-5;
-					aux_bici.get().getEstado().getLista().removeFirst();
-					aux_bici.get().getEstado().getLista().addFirst(EstadoBicicleta.RESERVADA);
-					aux_bici.get().setEstacion(null);
-					aux_st.get().deleteBike(aux_bici.get());
-					estaciones.save(aux_st.get());
-					bicicletas.save(aux_bici.get());
-					data.put("saldo", new_saldo);
-					plantilla.put(url,data);
-					URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-					return ResponseEntity.created(location).build();
-				}
-				else
-					return ResponseEntity.unprocessableEntity().build();
-			} else
-				throw new InsufficentBalance("Saldo insuficiente");
+			if(estacion.getEstado() == EstadoEstacion.ACTIVA && bici.getEstacion().getId().equals(estacion.getId()) && bici.getEstado().getLista().getFirst() == EstadoBicicleta.EN_BASE){
+				RestTemplate plantilla = new RestTemplate();
+				String url ="http://localhost:8081/users/payment/" + identificadores.getUser_id() +"/"+ aux_bici.get().getPricebook();
+				plantilla.postForEntity(url,identificadores.getUser_id() , String.class, aux_bici.get().getPricebook(), String.class);
+				aux_bici.get().getEstado().getLista().removeFirst();
+				aux_bici.get().getEstado().getLista().addFirst(EstadoBicicleta.RESERVADA);
+				aux_bici.get().setEstacion(null);
+				aux_st.get().deleteBike(aux_bici.get());
+				estaciones.save(aux_st.get());
+				bicicletas.save(aux_bici.get());
+				return ResponseEntity.ok(aux_bici.get());
+			}
+			else
+				return ResponseEntity.unprocessableEntity().build();
 		} else
 			return ResponseEntity.notFound().build();
 	}
 
-	@PutMapping("/bicycles/free")
+	@PostMapping("/bicycles/free")
 	@Operation(summary = "Devolver bicicleta")
 	@ApiResponses(value = {
 			@ApiResponse(
@@ -138,20 +119,15 @@ public class ReservaDevolucionRestController {
 			if(estacion.getEstado() == EstadoEstacion.ACTIVA && bici.getEstado().getLista().getFirst() == EstadoBicicleta.RESERVADA) {
 				if(estacion.getSize()>estacion.getListaBicis().size()) {
 					RestTemplate plantilla = new RestTemplate();
-					String url = "http://localhost:8081/users/" + identificadores.getUser_id();
-					ObjectNode data = plantilla.getForObject(url, ObjectNode.class);
-					assert data != null;
-					double new_saldo = data.get("saldo").asDouble()+ 2.5;
+					String url = "http://localhost:8081/users/devolution/" + identificadores.getUser_id()+ "/"+ bici.getPricebook();
+					plantilla.postForEntity(url,identificadores.getUser_id() , String.class, aux_bici.get().getPricebook(), String.class);
 					aux_bici.get().getEstado().getLista().removeFirst();
 					aux_bici.get().getEstado().getLista().addFirst(EstadoBicicleta.EN_BASE);
 					aux_bici.get().setEstacion(aux_st.get());
 					aux_st.get().addBici(aux_bici.get());
 					estaciones.save(aux_st.get());
 					bicicletas.save(aux_bici.get());
-					data.put("saldo", new_saldo);
-					plantilla.put(url,data);
-					URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-					return ResponseEntity.created(location).build();
+					return ResponseEntity.ok(bici);
 				}
 				else
 					throw new IncorrectStationCapacity("La estación no admite más bicicletas");

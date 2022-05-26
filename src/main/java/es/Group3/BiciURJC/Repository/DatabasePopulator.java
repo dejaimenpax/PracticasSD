@@ -36,15 +36,15 @@ public class DatabasePopulator {
         ));
 
         blogbicicletasrepository.saveAll(Arrays.asList(
-                new Bicicleta("1A","BMX", EN_BASE, estacion1),
-                new Bicicleta("1B","DH", EN_BASE, estacion1),
-                new Bicicleta("1C","BMX", EN_BASE, estacion1),
-                new Bicicleta("2","Street", EN_BASE, estacion1),
-                new Bicicleta("3","Downhill", EN_BASE, estacion2),
-                new Bicicleta("4","Paseo", EN_BASE, estacion2),
-                new Bicicleta("4A","Paseo", EN_BASE, estacion2),
-                new Bicicleta("5B","Montaña", SIN_BASE),
-                new Bicicleta("5C","Montaña", SIN_BASE)
+                new Bicicleta("1A","BMX", EN_BASE, estacion1,5),
+                new Bicicleta("1B","DH", EN_BASE, estacion1,5),
+                new Bicicleta("1C","BMX", EN_BASE, estacion1,5),
+                new Bicicleta("2","Street", EN_BASE, estacion1,5),
+                new Bicicleta("3","Downhill", EN_BASE, estacion2,5),
+                new Bicicleta("4","Paseo", EN_BASE, estacion2,5),
+                new Bicicleta("4A","Paseo", EN_BASE, estacion2,5),
+                new Bicicleta("5B","Montaña", SIN_BASE,5),
+                new Bicicleta("5C","Montaña", SIN_BASE,5)
         ));
 
     }
