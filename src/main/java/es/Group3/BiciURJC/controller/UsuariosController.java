@@ -58,7 +58,7 @@ public class UsuariosController {
         return ResponseEntity.created(location).body(userdto);
     }
 
-    @PutMapping("/{id}/{login}/{password}/{fullname}/{saldo}/{estado}")
+    @PutMapping("/{id}")
     @Operation(summary = "Actualizar/modificar usuario")
     @ApiResponses(value = {
             @ApiResponse(
@@ -83,9 +83,10 @@ public class UsuariosController {
     public ResponseEntity<UsuarioDto> replaceUser(@PathVariable long id, @RequestBody Usuario newUser) {
         Optional<Usuario> user = usuarios.findById(id);
         if (user.isPresent()) {
-            UsuarioDto userdto = new UsuarioDto(newUser.getLogin(), newUser.getFullName(), newUser.getEntryDate(),
+            UsuarioDto userdto = new UsuarioDto(newUser.getLogin(), newUser.getFullName(), user.get().getEntryDate(),
                                                 newUser.getEstado(), newUser.getSaldo());
             newUser.setId(id);
+            newUser.setPassword(user.get().getPassword());
             usuarios.save(newUser);
             return ResponseEntity.ok(userdto);
         } else {
